@@ -302,7 +302,7 @@ public class Torneo {
             }
         }
         else{
-            JOptionPane.showMessageDialog(null,"No queda espacio para este torneo verifique la disponibilidad ");
+            JOptionPane.showMessageDialog(null,"No queda espacio para este torneo ");
         }
         
     }
