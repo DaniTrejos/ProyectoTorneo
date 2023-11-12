@@ -26,7 +26,7 @@ public class Menus{
                                 3. Registrar jueces
                                 4. Agendar enfrentamientos
                                 5. Información de fechas
-                                6. Información de los enfrentamientos
+                                6. Enfrentamientos
                                 7. Tabla general
                                 8. Salir""".indent(5), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
