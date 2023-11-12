@@ -9,14 +9,15 @@ import java.util.ArrayList;
 
 public class Menus{
 
+    Torneo miTorneo = new Torneo();
+
     public void menuPrincipal() {
 
-        Torneo miTorneo = new Torneo();
         JOptionPane.showMessageDialog(null, "BIENVENIDO A LOS JUEGOS UNIVERSITARIOS 2023", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
-        Integer option = 0; // Inicializamos la opción a un valor válido
+        int option = 0; // Inicializamos la opción a un valor válido
 
-        while (option != null && option != 8) {
+        while (option != 8) {
             try {
                 String input = JOptionPane.showInputDialog(null,
                         """
@@ -26,7 +27,7 @@ public class Menus{
                                 3. Registrar jueces
                                 4. Agendar enfrentamientos
                                 5. Información de fechas
-                                6. Información de los enfrentamientos
+                                6. Enfrentamientos
                                 7. Tabla general
                                 8. Salir""".indent(5), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
@@ -44,7 +45,8 @@ public class Menus{
                             JOptionPane.showMessageDialog(null, "Prueba Agregar");
                             break;
                         case 2:
-                            JOptionPane.showMessageDialog(null, "Prueba Ver Torneos");
+                            mostrarOpcionesDeportes();
+                            //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
                         case 3:
                             break;
@@ -72,9 +74,9 @@ public class Menus{
     }
 
     public void menuConsultarFechas(){
-        Integer option = 0;
+        int option = 0;
 
-        while (option != null && option != 3) {
+        while (option != 3) {
             try {
                 String input = JOptionPane.showInputDialog(null,"     1. Consultar Fechas \n     2."+
                         " Modificar Fechas \n     3. Atrás","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
@@ -105,9 +107,9 @@ public class Menus{
     }
 
     public void menuModificarFechas(){
-        Integer option = 0;
+        int option = 0;
 
-        while (option != null && option != 4) {
+        while (option != 4) {
             try {
                 String input = JOptionPane.showInputDialog(null, "     1. Inicio de Inscripciones \n     2."+
                         " Cierre de Inscripciones \n     3. Inicio del Torneo\n     4. Atras", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
@@ -141,12 +143,12 @@ public class Menus{
     }
 
     public void mostrarTablaGeneralTorneosIndividuales(){
-        Integer option = 0;
+        int option = 0;
 
-        while (option != null && option != 6) {
+        while (option != 6) {
             try {
                 String input = JOptionPane.showInputDialog(null,"     1. Futbol \n     2. Baloncesto\n     3."+
-                                " Volleyball\n     4. Hockey\n     5.Polo\n     6. Atras","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                        " Volleyball\n     4. Hockey\n     5.Polo\n     6. Atras","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                 if (input == null) {
 
                     break;
@@ -183,7 +185,7 @@ public class Menus{
 
     public static void mostrarTablaGeneralFutbol() {
         Object[][] data = {
-                {"Equipo A", 1, "Equipo B", 1},
+                {"Equipo A", 2, "Equipo B", 1},
                 {"Equipo C", 0, "Equipo D", 2},
                 {"Equipo E", 1, "Equipo F", 1}
         };
@@ -215,12 +217,12 @@ public class Menus{
 
     public void mostrarInformacionEnfrentamientos(){
 
-        Integer option = 0;
+        int option = 0;
 
-        while (option != null && option != 3) {
+        while (option != 4) {
             try {
-                String input = JOptionPane.showInputDialog(null,"     1. Consultar Información de los Equipos \n     2."+
-                        " Consultar Información de los Jueces \n     3. Atrás", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                String input = JOptionPane.showInputDialog(null,"     1. Agregar resultados\n     2. Consultar Información de los Equipos \n     3."+
+                        " Consultar Información de los Jueces \n     4. Atrás", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
                 if (input == null) {
                     break;
@@ -228,19 +230,23 @@ public class Menus{
 
                 option = Integer.parseInt(input);
 
-                if (option > 0 && option <= 3) {
+                if (option > 0 && option <= 4) {
                     switch (option) {
                         case 1:
-                            JOptionPane.showMessageDialog(null, "Información de equipos consultada");
+                            JOptionPane.showMessageDialog(null, "Aquí debe de escoger el deporte y luego automaticamente"+
+                                    " se guardan los resultados con la la clase random");
                             break;
                         case 2:
-                            JOptionPane.showMessageDialog(null, "Información de los jueces consultada");
+                            JOptionPane.showMessageDialog(null, "Información de equipos consultada");
                             break;
                         case 3:
+                            JOptionPane.showMessageDialog(null, "Información de los jueces consultada");
+                            break;
+                        case 4:
                             break;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-3");
+                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-4");
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
@@ -248,6 +254,47 @@ public class Menus{
 
         }
 
+    }
+
+    public void mostrarOpcionesDeportes(){
+        int option = 0;
+
+        while (option != 6) {
+            try {
+                String input = JOptionPane.showInputDialog(null,"     1. Futbol \n     2. Baloncesto\n     3."+
+                        " Volleyball\n     4. Hockey\n     5. Polo\n     6. Atras","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                if (input == null) {
+
+                    break;
+                }
+                option = Integer.parseInt(input);
+
+                if (option > 0 && option <= 6) {
+                    switch (option) {
+                        case 1:
+                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de futbol son?")));
+                            break;
+                        case 2:
+                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de baloncesto son?")));
+                            break;
+                        case 3:
+                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de volleyball son?")));
+                            break;
+                        case 4:
+                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de hockey son?")));
+                            break;
+                        case 5:
+                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de polo son?")));
+                            break;
+                        case 6:
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-6");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
+            }
+        }
     }
 
 }
