@@ -45,13 +45,14 @@ public class Equipo {
     public void registrarJugador(){
         
         Jugador miJugador=new Jugador();
-        miJugador.setId(entrada("ingrese el id"));
-        miJugador.setNombre(entrada("ingrese el nombre"));
-        miJugador.setApellido(entrada("ingrese el apellido"));
-        miJugador.setEdad(Integer.parseInt(entrada("ingrese la edad")));
-        miJugador.setEmail(entrada("ingrese el email"));
-        miJugador.setNumeroCelular(entrada("ingrese el numero de celular"));
-        String op=entrada("Genero: 1.Masculino  2.Femenino 3.Otro ");
+        miJugador.setId(entrada("Ingrese el id: "));
+        //validación temprana de id, para evitar meter todos los demás datos si el jugador ya existe.
+        miJugador.setNombre(entrada("Ingrese el nombre: "));
+        miJugador.setApellido(entrada("Ingrese el apellido: "));
+        miJugador.setEdad(Integer.parseInt(entrada("Ingrese la edad: ")));
+        miJugador.setEmail(entrada("Ingrese el email: "));
+        miJugador.setNumeroCelular(entrada("Ingrese el numero de celular: "));
+        String op=entrada("Género:\n1. Masculino\n2. Femenino\n3. Otro ");
         switch(op){
             case "1":
                miJugador.setGenero(Genero.MASCULINO);
@@ -70,11 +71,11 @@ public class Equipo {
         
         if(validarJugador(miJugador)==false){
             listaJugadores.add(miJugador);
-            JOptionPane.showMessageDialog(null, "Jugador registrado con exito ");
+            JOptionPane.showMessageDialog(null, "Jugador registrado con éxito ");
         }
         
         else{
-            JOptionPane.showMessageDialog(null, "el jugador ya se encuentra registrado ");
+            JOptionPane.showMessageDialog(null, "El jugador ya se encuentra registrado ");
         }
         
     }
@@ -96,11 +97,11 @@ public class Equipo {
     //temporal
     public Persona crearPersona(){
         Persona miPersona=new Persona();
-        miPersona.setNombre(entrada("ingrese el nombre"));
-        miPersona.setApellido(entrada("ingrese el apellido"));
-        miPersona.setId(entrada("ingrese el ID"));
-        miPersona.setEmail(entrada("ingrese el email"));
-        miPersona.setNumeroCelular(entrada("ingrese el numero de celular "));
+        miPersona.setNombre(entrada("Ingrese el nombre"));
+        miPersona.setApellido(entrada("Ingrese el apellido"));
+        miPersona.setId(entrada("Ingrese el ID"));
+        miPersona.setEmail(entrada("Ingrese el email"));
+        miPersona.setNumeroCelular(entrada("Ingrese el número de celular "));
         
         return miPersona;
     }

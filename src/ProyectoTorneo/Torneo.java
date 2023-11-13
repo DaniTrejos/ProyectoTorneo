@@ -205,12 +205,12 @@ public class Torneo {
         
         Torneo miTorneo=new Torneo();
 
-        miTorneo.setEdadMaxJugadores(Integer.parseInt(verificarMensajeEntrada("Ingrese la edad Máxima")));
-        miTorneo.setNumeroMaxEquipo(Integer.parseInt(verificarMensajeEntrada("Ingrese el número máximo de equipos"))); //verificar que el tamaño del arrayList equipos sea menor a esta variable
         miTorneo.setNombreTorneo(verificarMensajeEntrada("Ingrese el nombre del torneo"));
+        miTorneo.setNumeroMaxEquipo(Integer.parseInt(verificarMensajeEntrada("Ingrese el número máximo de equipos")));
+        miTorneo.setEdadMaxJugadores(Integer.parseInt(verificarMensajeEntrada("Ingrese la edad Máxima")));
         miTorneo.setValorInscripcion(Double.parseDouble(verificarMensajeEntrada("Ingrese el valor de la inscripción")));
 
-        String op1=entrada(       "Tipo de Torneo\n1. Local\n2. Regional\n3. Nacional\n4. Mundial");
+        String op1 = entrada(      "Tipo de Torneo\n1. Local\n2. Regional\n3. Nacional\n4. Mundial");
         switch(op1){
             case "1":
                 miTorneo.setTipotorneo(TipoTorneo.LOCAL);
@@ -280,7 +280,6 @@ public class Torneo {
             for(int i=0;i<equipos.size();i++){
                 if(name.equals(equipos.get(i).getNombreEquipo())){
                     esta=true;
-                    
                 }
             }
 

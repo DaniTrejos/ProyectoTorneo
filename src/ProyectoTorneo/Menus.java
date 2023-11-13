@@ -41,24 +41,10 @@ public class Menus{
                 if (option > 0 && option <= 8) {
                     switch (option) {
                         case 1:
-                            
                             miTorneo.crearTorneo(listaTorneos);
-                            JOptionPane.showMessageDialog(null, "Prueba Agregar");
                             break;
                         case 2:
-                            //Buscar el torneo  donde se desea registrar el equipo
-                            String s=JOptionPane.showInputDialog("Ingrese el nombre del torneo en el nque desea registrar el equipo ");
-                            boolean c=false;
-                            for(int i=0;i<listaTorneos.size();i++){
-                                if(listaTorneos.get(i).getNombreTorneo().equals(s)){
-                                    listaTorneos.get(i).crearEquipo();
-                                    c=true;
-                                }
-                            }
-                            if(c==false){
-                                JOptionPane.showMessageDialog(null, "No se encontraron resultados ");
-                            }
-                           
+                            validarExistenciaTorneo();
                             //mostrarOpcionesDeportes();
                             //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
@@ -307,6 +293,26 @@ public class Menus{
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
+            }
+        }
+    }
+
+    public void validarExistenciaTorneo(){
+        if(listaTorneos.size()<1){
+            JOptionPane.showMessageDialog(null, "No se puede crear el equipo porque no hay torneos existentes");
+        }
+        else{
+            //Buscar el torneo  donde se desea registrar el equipo
+            String s = JOptionPane.showInputDialog("Ingrese el nombre del torneo en el que desea registrar el equipo ");
+            boolean c = false;
+            for(int i = 0; i < listaTorneos.size(); i++){
+                if(listaTorneos.get(i).getNombreTorneo().equals(s)){
+                    listaTorneos.get(i).crearEquipo();
+                    c = true;
+                }
+            }
+            if(c==false){
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados ");
             }
         }
     }
