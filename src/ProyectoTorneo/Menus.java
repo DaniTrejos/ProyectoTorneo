@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Menus{
 
     Torneo miTorneo = new Torneo();
+    ArrayList<Torneo> listaTorneos = new ArrayList<>();
 
     public void menuPrincipal() {
 
@@ -40,12 +41,25 @@ public class Menus{
                 if (option > 0 && option <= 8) {
                     switch (option) {
                         case 1:
-                            ArrayList<Torneo> listaTorneos = new ArrayList<>();
+                            
                             miTorneo.crearTorneo(listaTorneos);
                             JOptionPane.showMessageDialog(null, "Prueba Agregar");
                             break;
                         case 2:
-                            mostrarOpcionesDeportes();
+                            //Buscar el torneo  donde se desea registrar el equipo
+                            String s=JOptionPane.showInputDialog("Ingrese el nombre del torneo en el nque desea registrar el equipo ");
+                            boolean c=false;
+                            for(int i=0;i<listaTorneos.size();i++){
+                                if(listaTorneos.get(i).getNombreTorneo().equals(s)){
+                                    listaTorneos.get(i).crearEquipo();
+                                    c=true;
+                                }
+                            }
+                            if(c==false){
+                                JOptionPane.showMessageDialog(null, "No se encontraron resultados ");
+                            }
+                           
+                            //mostrarOpcionesDeportes();
                             //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
                         case 3:
@@ -272,19 +286,19 @@ public class Menus{
                 if (option > 0 && option <= 6) {
                     switch (option) {
                         case 1:
-                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de futbol son?")));
+                            miTorneo.crearEquipo();
                             break;
                         case 2:
-                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de baloncesto son?")));
+                           
                             break;
                         case 3:
-                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de volleyball son?")));
+                            miTorneo.crearEquipo();
                             break;
                         case 4:
-                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de hockey son?")));
+                            miTorneo.crearEquipo();
                             break;
                         case 5:
-                            miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos de polo son?")));
+                            miTorneo.crearEquipo();
                             break;
                         case 6:
                     }

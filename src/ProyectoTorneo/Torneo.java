@@ -265,11 +265,13 @@ public class Torneo {
         miTorneo.setFechaFinalInscripcion(guardarFecha("ingrese la fecha de finalizacion de las inscripciones con formato año/mes/dia/hora/minuto"));
         miTorneo.setFechaInicioCompeticion(guardarFecha("ingrese la fecha de inicio del torneo con formato año/mes/dia/hora/minuto"));
         
+        torneos.add(miTorneo);
+        
     }
     
-    public void crearEquipo(int op){
+    public void crearEquipo(){
         
-        if(equipos.size()<op){
+        if(equipos.size()<this.numeroMaxEquipo){
             Equipo miEquipo=new Equipo();
             
             String name=entrada("ingrese el nombre del equipo ");
@@ -283,7 +285,7 @@ public class Torneo {
             }
 
             if(esta==false){
-                miEquipo.setNombreEquipo(entrada("ingrese el nombre del equipo "));
+                miEquipo.setNombreEquipo(name);
                 JOptionPane.showMessageDialog(null, "Ingrese la informacion del representante");
                 miEquipo.setRepresentante(miEquipo.crearPersona());
                 //temporal
