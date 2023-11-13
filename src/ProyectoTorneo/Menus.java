@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Menus{
@@ -343,6 +344,24 @@ public class Menus{
         
     }
     
+    public TipoEnfrentamiento tipoE(int entrada){
+        TipoEnfrentamiento retorno=null;
+        switch(entrada){
+            case 1:
+                retorno=TipoEnfrentamiento.MASCULINO;
+                break;
+                
+            case 2:
+                retorno=TipoEnfrentamiento.FEMENINO;
+                break;
+                
+            case 3:
+                retorno=TipoEnfrentamiento.MIXTO;
+                break;
+        }
+        return retorno;
+    }
+    
     
     
    //Temporal no se donde mas crear este metodo
@@ -354,55 +373,82 @@ public class Menus{
             for(int i=0;i<listaTorneos.size()&&c==false;i++){
               //Buscar el torneo donde se registrara el enfrentamiento
             if(listaTorneos.get(i).getNombreTorneo().equals(buscar)){
-                int op=Integer.parseInt(miTorneo.entrada("elija el tipo de deporte:\n1.Futbol \n2.Baloncesto \n3.Hockey \n4.Polo \n5.Volleyball "));
+                int op=Integer.parseInt(miTorneo.entrada("Elija el tipo de deporte:\n1.Futbol \n2.Baloncesto \n3.Hockey \n4.Polo \n5.Volleyball "));
                 //verificar que el tipo de deporte sea el mismo del torneo, si se cumple procede a crear el objeto
                 if(verificarTD(op)==listaTorneos.get(i).getTipoDeporte()){
-                    enfren.setId(miTorneo.entrada("Ingrese el id del enfrentamiento"));
-                    enfren.setFechaEndrentamiento(miTorneo.guardarFecha("Ingrese la fecha de incio del enfrentamiento con formato año/mes/dia/hora/minuto"));
-                    enfren.setLugar(miTorneo.entrada("Ingrese el lugar donde se realizara"));
-                    enfren.setTipoDeporte(verificarTD(op));
-                    //Registrar los equipos que participaran buscandolos por el nombre del equipo
-                    int num=Integer.parseInt(miTorneo.entrada("Cuantos equipos dese registrar "));
-                    for(int j=0;j<num;j++){
-                        //se busca el nombre del equipo en la lista de equipos del objeto en la posicion del arraylist torneos
-                        String b=miTorneo.entrada("Ingrese el nombre del equipo que desea agregar ");
-                        boolean encontrada=false;
-                        for(int k=0;k<listaTorneos.get(i).equipos.size();k++){
-                            //Comparar si el nombre suministrado exista en caso de que si lo agrega a la lista de equipos en la clase enfrentamiento
-                            if(listaTorneos.get(i).equipos.get(k).getNombreEquipo().equals(b)){
-                                enfren.listaEquipos.add(listaTorneos.get(i).equipos.get(k));
-                                encontrada=true;
+                    
+                    //verificar que el el tipo de enfrentamiento corresponda al del torneo
+                  int op1=Integer.parseInt(miTorneo.entrada("Tipo de Enfrentamiento\n1. Maculino\n2. Femenino\n3. Mixto"));
+                  if(tipoE(op1)==listaTorneos.get(i).getTipoE()){
+                      
+                        enfren.setId(miTorneo.entrada("Ingrese el id del enfrentamiento"));
+                        enfren.setFechaEndrentamiento(miTorneo.guardarFecha("Ingrese la fecha de incio del enfrentamiento con formato año/mes/dia/hora/minuto"));
+                        enfren.setLugar(miTorneo.entrada("Ingrese el lugar donde se realizara"));
+                        enfren.setTipoDeporte(verificarTD(op));
+                        enfren.setTipoEnfrentamiento(tipoE(op1));
+                        //Registrar los equipos que participaran buscandolos por el nombre del equipo
+                        int num=Integer.parseInt(miTorneo.entrada("Cuantos equipos dese registrar "));
+                        for(int j=0;j<num;j++){
+                            //se busca el nombre del equipo en la lista de equipos del objeto en la posicion del arraylist torneos
+                            String b=miTorneo.entrada("Ingrese el nombre del equipo que desea agregar ");
+                            boolean encontrada=false;
+                            for(int k=0;k<listaTorneos.get(i).equipos.size();k++){
+                                //Comparar si el nombre suministrado exista en caso de que si lo agrega a la lista de equipos en la clase enfrentamiento
+                                if(listaTorneos.get(i).equipos.get(k).getNombreEquipo().equals(b)){
+                                    enfren.listaEquipos.add(listaTorneos.get(i).equipos.get(k));
+                                    encontrada=true;
+                                }
                             }
-                        }
+                        
                         if(encontrada==false){
                             JOptionPane.showMessageDialog(null, "No se encontro el nombre del equipo");
                             if(j>0){
                                 j=j-1;
                             }
                         }
-                        
+                    
                     }
+                    
+                    //Estado del enfrentamiento se compara la fecha ingresada con la fecha actual
+                    
+                    if(enfren.getFechaEndrentamiento().isBefore(LocalDateTime.now())){
+                        enfren.setEstadoEnfrentamiento(EstadoEnfrentamiento.PENDIENTE);
+                    }
+                    else if(enfren.getFechaEndrentamiento().isAfter(LocalDateTime.now())){
+                        enfren.setEstadoEnfrentamiento(EstadoEnfrentamiento.FINALIZADO);
+                    }
+                    
+                    else{
+                        enfren.setEstadoEnfrentamiento(EstadoEnfrentamiento.ENJUEGO);
+                    }
+                    
+                    //Registrar jueces para este enfrentamiento
+                    
+                    enfren.registrarJuez();
+                  }
+                  
+                  else{
+                      JOptionPane.showMessageDialog(null, "El tipo de enfrentamiento no coincide con el tipo del torneo ");
+                      c=true;
+                  }
+
                 }
                 else{
                     c=true;
                     JOptionPane.showMessageDialog(null, "El tipo de deporte no coincide con el tipo de deporte del torneo");
                 }
                 
+                c=true;
                 
             }
             
            
         }
             
-          if(c==true){
-              JOptionPane.showMessageDialog(null, "No se encontro resultados para ");
+          if(c==false){
+              JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ");
           }
             
         
     }
-     
-     public void equipoE(){
-         
-         
-     }
 }
