@@ -45,7 +45,6 @@ public class Menus{
                             break;
                         case 2:
                             validarExistenciaTorneo();
-                            
                             //mostrarOpcionesDeportes();
                             //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
@@ -89,7 +88,8 @@ public class Menus{
                 if (option > 0 && option <= 3) {
                     switch (option) {
                         case 1:
-                            JOptionPane.showMessageDialog(null, "Fechas consultadas");
+                            consultarFechas();
+                            //JOptionPane.showMessageDialog(null, "Fechas consultadas");
                             break;
                         case 2:
                             menuModificarFechas();
@@ -342,8 +342,46 @@ public class Menus{
         return retorno;
         
     }
-    
-    
+
+    public void consultarFechas() {
+        if (listaTorneos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No hay torneos disponibles para consultar fechas");
+        } else {
+            String nombreTorneo = JOptionPane.showInputDialog("Ingrese el nombre del torneo al cual quiere consultarle las fechas");
+            boolean torneoEncontrado = false;
+
+            for (int i = 0; i < listaTorneos.size(); i++) {
+                Torneo torneo = listaTorneos.get(i);
+                if (nombreTorneo.equals(torneo.getNombreTorneo())) {
+                    JOptionPane.showMessageDialog(null,
+                            "                Fechas del Torneo " + torneo.getNombreTorneo() + ":\n" +
+                                    "Fecha inicio de la inscripción: " + torneo.getFechaInicioInscripcion().toLocalDate() +
+                                    "\n Hora de inicio: " + torneo.getFechaInicioInscripcion().toLocalTime() + "\n" +
+                                    "------------------------------------------------------------------------" + "\n"+
+                                    "Fecha inicio de la inscripción: " + torneo.getFechaFinalInscripcion().toLocalDate() +
+                                    "\nHora de cierre: " + torneo.getFechaFinalInscripcion().toLocalTime() + "\n" +
+                                    "------------------------------------------------------------------------" + "\n" +
+                                    "Fecha inicio de la competición: " + torneo.getFechaInicioCompeticion().toLocalDate() +
+                                    "\nHora de inicio: " + torneo.getFechaInicioCompeticion().toLocalTime());
+                    torneoEncontrado = true;
+                    break;
+                }
+            }
+            if (!torneoEncontrado) {
+                JOptionPane.showMessageDialog(null, "No se encontró un torneo con ese nombre");
+            }
+        }
+    }
+
+    public void obtenerFechaTorneo(ArrayList<Torneo> listaTorneos){
+        if(listaTorneos.size()<1){
+            JOptionPane.showMessageDialog(null, "No hay fechas disponibles para modificar");
+        }
+        else{
+            menuModificarFechas();
+        }
+    }
+
     
    //Temporal no se donde mas crear este metodo
     

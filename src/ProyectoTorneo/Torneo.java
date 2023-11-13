@@ -202,11 +202,34 @@ public class Torneo {
         return entradaVerificada;
     }
 
+    public String verificarNombreTorneo(ArrayList<Torneo>torneos){
+        String nombreTorneo;
+        boolean nombreExistente;
+        do {
+            nombreTorneo = verificarMensajeEntrada("Ingrese el nombre del torneo: ");
+            // Verificar si el nombre del torneo ya existe en el ArrayList
+            nombreExistente = false;
+
+            for (int i = 0; i < torneos.size(); i++) {
+                if (torneos.get(i).getNombreTorneo().equals(nombreTorneo)) {
+                    nombreExistente = true;
+                    break;
+                }
+            }
+            if (nombreExistente) {
+                JOptionPane.showMessageDialog(null, "¡Error! El nombre del torneo ya existe. Ingrese uno diferente.");
+            }
+        } while (nombreExistente);
+
+        return nombreTorneo;
+    }
+
     public void crearTorneo(ArrayList<Torneo>torneos){
         
         Torneo miTorneo=new Torneo();
 
-        miTorneo.setNombreTorneo(verificarMensajeEntrada("Ingrese el nombre del torneo"));
+        miTorneo.setNombreTorneo(verificarNombreTorneo(torneos));
+        //miTorneo.setNombreTorneo(verificarMensajeEntrada("Ingrese el nombre del torneo"));
         miTorneo.setNumeroMaxEquipo(Integer.parseInt(verificarMensajeEntrada("Ingrese el número máximo de equipos")));
         miTorneo.setEdadMaxJugadores(Integer.parseInt(verificarMensajeEntrada("Ingrese la edad Máxima")));
         miTorneo.setValorInscripcion(Double.parseDouble(verificarMensajeEntrada("Ingrese el valor de la inscripción")));

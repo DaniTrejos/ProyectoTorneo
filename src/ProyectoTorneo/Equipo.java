@@ -6,8 +6,9 @@ import javax.swing.JOptionPane;
 public class Equipo {
     private String nombreEquipo;
     private Persona representante;
-    ArrayList<Jugador> listaJugadores = new ArrayList<>();
     private int puntuacion;
+
+    ArrayList<Jugador> listaJugadores = new ArrayList<>();
 
     public Equipo(String nombreEquipo, Persona representante, int puntuacion) {
         this.nombreEquipo = nombreEquipo;
@@ -53,12 +54,48 @@ public class Equipo {
     public void setListaJugadores(ArrayList<Jugador> listaJugadores) {
         this.listaJugadores = listaJugadores;
     }*/
+
+    /*public boolean validarJugador(Jugador jugador){
+    boolean esta=false;
+
+    for(int i=0;i<listaJugadores.size()&& esta == false; i++){
+        if(jugador.getId().equals(listaJugadores.get(i).getId())){
+            esta=true;
+        }
+    }
+    return esta;
+}
+ */
+    Torneo torneo = new Torneo();
+
+    public String verificarJugador(ArrayList<Jugador> jugadores){
+        String codigoJugador;
+        boolean iDExistente;
+
+        do {
+            codigoJugador = torneo.verificarMensajeEntrada("Ingrese el id del jugador: ");
+            // Verificar si el código del jugador ya existe en el ArrayList
+            iDExistente = false;
+
+            for (int i = 0; i < jugadores.size(); i++) {
+                if (codigoJugador.equals(jugadores.get(i).getId())) {
+                    iDExistente = true;
+                    break;
+                }
+            }
+            if (iDExistente) {
+                JOptionPane.showMessageDialog(null, "¡Error! el jugador ya existe. Ingrese otro.");
+            }
+        } while (iDExistente);
+
+        return codigoJugador;
+    }
     
     public void registrarJugador(){
         
         Jugador miJugador=new Jugador();
-        miJugador.setId(entrada("Ingrese el id: "));
-        //validación temprana de id, para evitar meter todos los demás datos si el jugador ya existe.
+
+        miJugador.setId(verificarJugador(listaJugadores));
         miJugador.setNombre(entrada("Ingrese el nombre: "));
         miJugador.setApellido(entrada("Ingrese el apellido: "));
         miJugador.setEdad(Integer.parseInt(entrada("Ingrese la edad: ")));
@@ -79,33 +116,16 @@ public class Equipo {
         }
         
         //fecha de nacimiento
-        
-        
-        if(validarJugador(miJugador)==false){
-            listaJugadores.add(miJugador);
-            JOptionPane.showMessageDialog(null, "Jugador registrado con éxito ");
-        }
-        
-        else{
-            JOptionPane.showMessageDialog(null, "El jugador ya se encuentra registrado ");
-        }
-        
+
+        JOptionPane.showMessageDialog(null, "Jugador registrado con éxito ");
+        listaJugadores.add(miJugador);
     }
     
     public String entrada(String cadena){
         return JOptionPane.showInputDialog(cadena);
     }
-    
-    public boolean validarJugador(Jugador jugador){
-        boolean esta=false;
-        
-        for(int i=0;i<listaJugadores.size()&&esta==false;i++){
-            if(jugador.getId().equals(listaJugadores.get(i).getId())){
-                esta=true;
-            }
-        }
-        return esta;
-    }
+
+
     //temporal
     public Persona crearPersona(){
         Persona miPersona=new Persona();
@@ -117,11 +137,7 @@ public class Equipo {
         
         return miPersona;
     }
-    
-    
-    
-    
-    
+
     //crear funcion crear jugador y validar si el jugador ya esta registrado
 
     @Override
