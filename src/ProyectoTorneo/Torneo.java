@@ -19,7 +19,8 @@ public class Torneo {
     private TipoEnfrentamiento tipoE;
     //private Genero genero;
     ArrayList<Equipo>equipos=new ArrayList<>();
-
+    ArrayList<Enfrentamiento>enfrentamientos=new ArrayList<>();
+   
     public Torneo(){
     }
 

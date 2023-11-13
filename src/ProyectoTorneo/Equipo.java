@@ -7,10 +7,12 @@ public class Equipo {
     private String nombreEquipo;
     private Persona representante;
     ArrayList<Jugador> listaJugadores = new ArrayList<>();
+    private int puntuacion;
 
-    public Equipo(String nombreEquipo, Persona representante) {
+    public Equipo(String nombreEquipo, Persona representante, int puntuacion) {
         this.nombreEquipo = nombreEquipo;
         this.representante = representante;
+        this.puntuacion=puntuacion;
         //this.listaJugadores=listadoJugadores;
     }
 
@@ -33,6 +35,16 @@ public class Equipo {
     public void setRepresentante(Persona representante) {
         this.representante = representante;
     }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+    
+    
 
     /*public ArrayList<Jugador> getListaJugadores() {
         return listaJugadores;

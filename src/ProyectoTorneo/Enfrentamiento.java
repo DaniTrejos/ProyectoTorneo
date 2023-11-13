@@ -1,13 +1,14 @@
 package ProyectoTorneo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class Enfrentamiento {
     private String id;
-    private LocalDate fechaEndrentamiento;
+    private LocalDateTime fechaEndrentamiento;
     private String lugar;
     private TipoEnfrentamiento tipoEnfrentamiento;
     private TipoDeporte tipoDeporte;
@@ -19,8 +20,9 @@ public class Enfrentamiento {
     //al momento de adicionar equipos verificar que no se registre el mismo equipo mas de una ves
 
     ArrayList<Juez> listajueces = new ArrayList<>();
+   // Torneo mit=new Torneo();
 
-    public Enfrentamiento(String id, LocalDate fechaEndrentamiento, String lugar, TipoEnfrentamiento tipoEnfrentamiento, TipoDeporte tipoDeporte, EstadoEnfrentamiento estadoEnfrentamiento) {
+    public Enfrentamiento(String id, LocalDateTime fechaEndrentamiento, String lugar, TipoEnfrentamiento tipoEnfrentamiento, TipoDeporte tipoDeporte, EstadoEnfrentamiento estadoEnfrentamiento) {
         this.id = id;
         this.fechaEndrentamiento = fechaEndrentamiento;
         this.lugar = lugar;
@@ -37,11 +39,11 @@ public class Enfrentamiento {
         this.id = id;
     }
 
-    public LocalDate getFechaEndrentamiento() {
+    public LocalDateTime getFechaEndrentamiento() {
         return fechaEndrentamiento;
     }
 
-    public void setFechaEndrentamiento(LocalDate fechaEndrentamiento) {
+    public void setFechaEndrentamiento(LocalDateTime fechaEndrentamiento) {
         this.fechaEndrentamiento = fechaEndrentamiento;
     }
 
@@ -100,17 +102,20 @@ public class Enfrentamiento {
     public String entrada(String cadena){
         return JOptionPane.showInputDialog(cadena);
     }
-    
+    //temporal
     public void registrarJuez(){
-        Juez miJuez=new Juez();
-        miJuez.setId(entrada("Ingrese el id"));
-        miJuez.setNombre(entrada("Ingrese el nombre del juez"));
-        miJuez.setApellido(entrada("Ingrese el apellido"));
-        miJuez.setLicencia(entrada("Ingrese el numero de licencia"));
-        miJuez.setEmail("Ingrese el email");
-        miJuez.setNumeroCelular(entrada("Ingrese el numero de celular"));
+        int num=Integer.parseInt(entrada("Cuantos juecez desea registrar"));
+        for(int i=0;i<num;i++){
+         Juez miJuez=new Juez();
+         miJuez.setId(entrada("Ingrese el id"));
+         miJuez.setNombre(entrada("Ingrese el nombre del juez"));
+         miJuez.setApellido(entrada("Ingrese el apellido"));
+         miJuez.setLicencia(entrada("Ingrese el numero de licencia"));
+         miJuez.setEmail("Ingrese el email");
+         miJuez.setNumeroCelular(entrada("Ingrese el numero de celular")); 
+         listajueces.add(miJuez);
+        }
         
-        listajueces.add(miJuez);
     }
 
     
