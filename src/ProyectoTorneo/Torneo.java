@@ -270,15 +270,15 @@ public class Torneo {
     }
     
     public void crearEquipo(){
-        
-        if(equipos.size()<this.numeroMaxEquipo){
+        //validar que el tamaño del arrayList sea menor al maximo permitido
+        if(this.equipos.size()<this.numeroMaxEquipo){
             Equipo miEquipo=new Equipo();
             
             String name=entrada("ingrese el nombre del equipo ");
             boolean esta=false;
-            
-            for(int i=0;i<equipos.size();i++){
-                if(name.equals(equipos.get(i).getNombreEquipo())){
+            //verificar que no existan equipos con el mismo nombre
+            for(int i=0;i<this.equipos.size();i++){
+                if(name.equals(this.equipos.get(i).getNombreEquipo())){
                     esta=true;
                 }
             }
@@ -293,7 +293,7 @@ public class Torneo {
                 for(int i=0;i<num;i++){
                     miEquipo.registrarJugador();
                 }
-
+                equipos.add(miEquipo);
                 JOptionPane.showMessageDialog(null,"Equipo registrado con exito "+ miEquipo.listaJugadores.toString());
             
              }

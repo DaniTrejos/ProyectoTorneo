@@ -1,55 +1,47 @@
 package ProyectoTorneo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class Enfrentamiento {
-    private Equipo equipo1;
-    private Equipo equipo2;
-    private Date fechaEndrentamiento = new Date();
+    private String id;
+    private LocalDate fechaEndrentamiento;
     private String lugar;
     private TipoEnfrentamiento tipoEnfrentamiento;
     private TipoDeporte tipoDeporte;
     private EstadoEnfrentamiento estadoEnfrentamiento;
+    ArrayList<Equipo> listaEquipos = new ArrayList<>();
+    
+    
+    
+    //al momento de adicionar equipos verificar que no se registre el mismo equipo mas de una ves
 
     ArrayList<Juez> listajueces = new ArrayList<>();
 
-    public Enfrentamiento(Equipo equipo1, Equipo equipo2, Date fechaEndrentamiento, String lugar, TipoEnfrentamiento tipoEnfrentamiento, TipoDeporte tipoDeporte, EstadoEnfrentamiento estadoEnfrentamiento, ArrayList<Juez> listajueces) {
-        this.equipo1 = equipo1;
-        this.equipo2 = equipo2;
+    public Enfrentamiento(String id, LocalDate fechaEndrentamiento, String lugar, TipoEnfrentamiento tipoEnfrentamiento, TipoDeporte tipoDeporte, EstadoEnfrentamiento estadoEnfrentamiento) {
+        this.id = id;
         this.fechaEndrentamiento = fechaEndrentamiento;
         this.lugar = lugar;
         this.tipoEnfrentamiento = tipoEnfrentamiento;
         this.tipoDeporte = tipoDeporte;
         this.estadoEnfrentamiento = estadoEnfrentamiento;
-        this.listajueces = listajueces;
     }
 
-    public Enfrentamiento(){
-
+    public String getId() {
+        return id;
     }
 
-    public Equipo getEquipo1() {
-        return equipo1;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setEquipo1(Equipo equipo1) {
-        this.equipo1 = equipo1;
-    }
-
-    public Equipo getEquipo2() {
-        return equipo2;
-    }
-
-    public void setEquipo2(Equipo equipo2) {
-        this.equipo2 = equipo2;
-    }
-
-    public Date getFechaEndrentamiento() {
+    public LocalDate getFechaEndrentamiento() {
         return fechaEndrentamiento;
     }
 
-    public void setFechaEndrentamiento(Date fechaEndrentamiento) {
+    public void setFechaEndrentamiento(LocalDate fechaEndrentamiento) {
         this.fechaEndrentamiento = fechaEndrentamiento;
     }
 
@@ -85,6 +77,14 @@ public class Enfrentamiento {
         this.estadoEnfrentamiento = estadoEnfrentamiento;
     }
 
+    public ArrayList<Equipo> getListaEquipos() {
+        return listaEquipos;
+    }
+
+    public void setListaEquipos(ArrayList<Equipo> listaEquipos) {
+        this.listaEquipos = listaEquipos;
+    }
+
     public ArrayList<Juez> getListajueces() {
         return listajueces;
     }
@@ -92,4 +92,26 @@ public class Enfrentamiento {
     public void setListajueces(ArrayList<Juez> listajueces) {
         this.listajueces = listajueces;
     }
+
+    public Enfrentamiento(){
+
+    }
+    
+    public String entrada(String cadena){
+        return JOptionPane.showInputDialog(cadena);
+    }
+    
+    public void registrarJuez(){
+        Juez miJuez=new Juez();
+        miJuez.setId(entrada("Ingrese el id"));
+        miJuez.setNombre(entrada("Ingrese el nombre del juez"));
+        miJuez.setApellido(entrada("Ingrese el apellido"));
+        miJuez.setLicencia(entrada("Ingrese el numero de licencia"));
+        miJuez.setEmail("Ingrese el email");
+        miJuez.setNumeroCelular(entrada("Ingrese el numero de celular"));
+        
+        listajueces.add(miJuez);
+    }
+
+    
 }

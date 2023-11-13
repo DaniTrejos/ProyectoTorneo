@@ -8,9 +8,7 @@ public class Juez extends Persona{
         this.licencia = licencia;
     }
 
-    public Juez(String licencia) {
-        this.licencia = licencia;
-    }
+  
 
     public Juez(){
 

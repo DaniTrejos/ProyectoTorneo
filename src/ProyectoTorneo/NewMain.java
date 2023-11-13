@@ -6,7 +6,7 @@ package ProyectoTorneo;
 
 /**
  *
- * @author Daniela Trejos, David Posso y Diane Ortega
+ * @author Daniela Trejos y David Posso
  */
 public class NewMain {
 

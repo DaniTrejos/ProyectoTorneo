@@ -45,6 +45,7 @@ public class Menus{
                             break;
                         case 2:
                             validarExistenciaTorneo();
+                            
                             //mostrarOpcionesDeportes();
                             //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
