@@ -45,8 +45,6 @@ public class Menus{
                             break;
                         case 2:
                             validarExistenciaTorneo();
-                            //mostrarOpcionesDeportes();
-                            //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
                         case 3:
                             agendarEnfrentamiento();
@@ -72,6 +70,22 @@ public class Menus{
         }
     }
 
+    public void validacionTorneoModificarFechas(){
+        String nombreTorneo = JOptionPane.showInputDialog("Ingrese el nombre del torneo al cual quiere consultarle las fechas");
+        boolean torneoEncontrado = false;
+        for (int i = 0; i < listaTorneos.size(); i++) {
+            Torneo torneo = listaTorneos.get(i);
+            if (nombreTorneo.equals(torneo.getNombreTorneo())) {
+                menuModificarFechas();
+                torneoEncontrado = true;
+                break;
+            }
+        }
+        if (!torneoEncontrado) {
+            JOptionPane.showMessageDialog(null, "No se encontró un torneo con ese nombre");
+        }
+    }
+
     public void menuConsultarFechas(){
         int option = 0;
 
@@ -91,7 +105,9 @@ public class Menus{
                             //JOptionPane.showMessageDialog(null, "Fechas consultadas");
                             break;
                         case 2:
-                            menuModificarFechas();
+                            validacionTorneoModificarFechas();
+                            //Primero debo de preguntar a que torneo le deseo modificar las fechas, buscarlo ahí si modificar las fechas dentro de él
+                            //menuModificarFechas();
                             //JOptionPane.showMessageDialog(null, "Fechas modificadas");
                             break;
                         case 3:
@@ -396,7 +412,7 @@ public class Menus{
     
 
     public void consultarFechas() {
-        if (listaTorneos.isEmpty()) {
+        if (listaTorneos.size()<1) {
             JOptionPane.showMessageDialog(null, "No hay torneos disponibles para consultar fechas");
         } else {
             String nombreTorneo = JOptionPane.showInputDialog("Ingrese el nombre del torneo al cual quiere consultarle las fechas");
