@@ -19,19 +19,18 @@ public class Menus{
 
         int option = 0; // Inicializamos la opción a un valor válido
 
-        while (option != 8) {
+        while (option != 7) {
             try {
                 String input = JOptionPane.showInputDialog(null,
                         """
                                                   MENÚ PRINCIPAL
                                 1. Crear torneos
                                 2. Crear equipos
-                                3. Registrar jueces
-                                4. Agendar enfrentamientos
-                                5. Información de fechas
-                                6. Enfrentamientos
-                                7. Tabla general
-                                8. Salir""".indent(5), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                                3. Agendar enfrentamientos
+                                4. Información de fechas
+                                5. Enfrentamientos
+                                6. Tabla general
+                                7. Salir""".indent(5), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
 
                 if (input == null) {
@@ -39,7 +38,7 @@ public class Menus{
                 }
                 option = Integer.parseInt(input);
 
-                if (option > 0 && option <= 8) {
+                if (option > 0 && option <= 7) {
                     switch (option) {
                         case 1:
                             miTorneo.crearTorneo(listaTorneos);
@@ -50,23 +49,22 @@ public class Menus{
                             //miTorneo.crearEquipo(Integer.parseInt(JOptionPane.showInputDialog("¿Cuantos equipos son?")));
                             break;
                         case 3:
+                            agendarEnfrentamiento();
                             break;
                         case 4:
-                            break;
-                        case 5:
                             menuConsultarFechas();
                             break;
-                        case 6:
+                        case 5:
                             mostrarInformacionEnfrentamientos();
                             break;
-                        case 7:
+                        case 6:
                             mostrarTablaGeneralTorneosIndividuales();
                             break;
-                        case 8:
+                        case 7:
                             break;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-8");
+                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-7");
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
@@ -108,6 +106,8 @@ public class Menus{
         }
     }
 
+    //metodo para evitar repiticion dentro del menu
+
     public void menuModificarFechas(){
         int option = 0;
 
@@ -124,14 +124,45 @@ public class Menus{
                     switch (option) {
                         case 1:
 
-                            JOptionPane.showMessageDialog(null, "Fechas de  inicio de inscripciones modificadas");
+                            int resultado = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 1);
+
+                            if (resultado == -1) {
+                                JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
+                            } else {
+                                LocalDateTime nuevaFecha = miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto");
+
+                                // Accedo al objeto Torneo específico en el ArrayList y establezco la nueva fecha
+                                listaTorneos.get(resultado).setFechaInicioInscripcion(nuevaFecha);
+                                JOptionPane.showMessageDialog(null, "Fechas de inicio de inscripciones modificadas");
+                            }
                             break;
+
                         case 2:
-                            JOptionPane.showMessageDialog(null, "Fechas de finalización de inscripciones modificadas");
+                            int resultado2 = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 2);
+
+                            if (resultado2 == -1) {
+                                JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
+                            } else {
+                                LocalDateTime nuevaFecha = miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto");
+
+                                // Accedo al objeto Torneo específico en el ArrayList y establezco la nueva fecha
+                                listaTorneos.get(resultado2).setFechaFinalInscripcion(nuevaFecha);
+                                JOptionPane.showMessageDialog(null, "Fechas de finalización de inscripciones modificadas");
+                            }
                             break;
+
                         case 3:
-                            JOptionPane.showMessageDialog(null, "Fechas de inicio del torneo modificadas");
+                            int resultado3 = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 3);
+
+                            if (resultado3 == -1) {
+                                JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
+                            } else {
+                                LocalDateTime nuevaFecha = miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto");
+                                listaTorneos.get(resultado3).setFechaInicioCompeticion(nuevaFecha);
+                                JOptionPane.showMessageDialog(null, "Fechas de inicio del torneo modificadas");
+                            }
                             break;
+
                         case 4:
                             break;
                     }
@@ -403,6 +434,36 @@ public class Menus{
         }
     }
 
+    public int modificarFechasTorneo(String mensaje, int condicion){
+        LocalDateTime fechaABuscar = miTorneo.guardarFecha(mensaje);
+
+        int indice = -1; //inicializo en este valor para saber más adelante si la fecha se encontró o no
+        for (int i = 0; i < listaTorneos.size(); i++) {
+            if(condicion==1){
+                LocalDateTime fecha = listaTorneos.get(i).getFechaInicioInscripcion(); // Extraigo la fecha para compararla
+                if (fecha.equals(fechaABuscar)) {
+                    indice = i; // Encuentro la fecha y rompo el ciclo
+                    break;
+                }
+            }else if (condicion==2){
+                LocalDateTime fecha = listaTorneos.get(i).getFechaFinalInscripcion(); // Extraigo la fecha para compararla
+                if (fecha.equals(fechaABuscar)) {
+                    indice = i; // Encuentro la fecha y rompo el ciclo
+                    break;
+                }
+            }
+            else {
+                LocalDateTime fecha = listaTorneos.get(i).getFechaInicioCompeticion(); // Extraigo la fecha para compararla
+                if (fecha.equals(fechaABuscar)) {
+                    indice = i; // Encuentro la fecha y rompo el ciclo
+                    break;
+                }
+            }
+
+        }
+        return indice;
+    }
+
     
    //Temporal no se donde mas crear este metodo
     
@@ -413,7 +474,7 @@ public class Menus{
             for(int i=0;i<listaTorneos.size()&&c==false;i++){
               //Buscar el torneo donde se registrara el enfrentamiento
             if(listaTorneos.get(i).getNombreTorneo().equals(buscar)){
-                int op=Integer.parseInt(miTorneo.entrada("Elija el tipo de deporte:\n1.Futbol \n2.Baloncesto \n3.Hockey \n4.Polo \n5.Volleyball "));
+                int op=Integer.parseInt(miTorneo.entrada("Elija el tipo de deporte:\n1. Futbol \n2. Baloncesto \n3. Hockey \n4. Polo \n5. Volleyball "));
                 //verificar que el tipo de deporte sea el mismo del torneo, si se cumple procede a crear el objeto
                 if(verificarTD(op)==listaTorneos.get(i).getTipoDeporte()){
                     
@@ -477,18 +538,14 @@ public class Menus{
                     c=true;
                     JOptionPane.showMessageDialog(null, "El tipo de deporte no coincide con el tipo de deporte del torneo");
                 }
-                
                 c=true;
                 
             }
-            
-           
         }
             
           if(c==false){
               JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ");
           }
-            
-        
     }
+
 }
