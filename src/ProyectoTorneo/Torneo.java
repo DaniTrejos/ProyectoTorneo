@@ -161,7 +161,7 @@ public class Torneo {
         boolean entradaValida = true;
 
         while (entradaValida) {
-            String fechaInput = JOptionPane.showInputDialog(mensaje);
+            String fechaInput = JOptionPane.showInputDialog(null, mensaje,"Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
             if (fechaInput == null) {
                 JOptionPane.showMessageDialog(null, "Usted decidió continuar sin ingresar ningún dato", "¡Advertencia!", JOptionPane.WARNING_MESSAGE);
@@ -193,7 +193,7 @@ public class Torneo {
 
     //Método para cerrar la ventana si el usuario o quien sea le da click en "cancelar" o en la "x" de cerrar
     public String verificarMensajeEntrada(String mensaje) {
-        String entradaVerificada = JOptionPane.showInputDialog(mensaje);
+        String entradaVerificada = JOptionPane.showInputDialog(null, mensaje, "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
         if (entradaVerificada == null) {
             JOptionPane.showMessageDialog(null, "Usted decidió continuar sin ingresar ningún dato", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -206,7 +206,7 @@ public class Torneo {
         String nombreTorneo;
         boolean nombreExistente;
         do {
-            nombreTorneo = verificarMensajeEntrada("Ingrese el nombre del torneo: ");
+            nombreTorneo = verificarMensajeEntrada("         Ingrese el nombre del torneo ");
             // Verificar si el nombre del torneo ya existe en el ArrayList
             nombreExistente = false;
 
@@ -229,12 +229,13 @@ public class Torneo {
         Torneo miTorneo=new Torneo();
 
         miTorneo.setNombreTorneo(verificarNombreTorneo(torneos));
+        // torneo.setFechaInicioInscripcion(miTorneo.guardarFecha("Ingrese la f.n: "));
         //miTorneo.setNombreTorneo(verificarMensajeEntrada("Ingrese el nombre del torneo"));
-        miTorneo.setNumeroMaxEquipo(Integer.parseInt(verificarMensajeEntrada("Ingrese el número máximo de equipos")));
-        miTorneo.setEdadMaxJugadores(Integer.parseInt(verificarMensajeEntrada("Ingrese la edad Máxima")));
-        miTorneo.setValorInscripcion(Double.parseDouble(verificarMensajeEntrada("Ingrese el valor de la inscripción")));
+        miTorneo.setNumeroMaxEquipo(Integer.parseInt(verificarMensajeEntrada("       Ingrese el número máximo de equipos")));
+        miTorneo.setEdadMaxJugadores(Integer.parseInt(verificarMensajeEntrada("       Ingrese la edad Máxima")));
+        miTorneo.setValorInscripcion(Double.parseDouble(verificarMensajeEntrada("       Ingrese el valor de la inscripción")));
 
-        String op1 = entrada(      "Tipo de Torneo\n1. Local\n2. Regional\n3. Nacional\n4. Mundial");
+        String op1 = JOptionPane.showInputDialog(null,      "      Tipo de Torneo\n  1. Local\n  2. Regional\n  3. Nacional\n  4. Mundial", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         switch(op1){
             case "1":
                 miTorneo.setTipotorneo(TipoTorneo.LOCAL);
@@ -251,7 +252,7 @@ public class Torneo {
         }
 
         //Modificar con menú
-        String op2=entrada("     Tipo de deporte\n1. Futbol\n2. Baloncesto\n3. Volleyball\n4. Hockey\n5. Polo ");
+        String op2 = JOptionPane.showInputDialog(null,"       Tipo de deporte\n   1. Futbol\n   2. Baloncesto\n   3. Volleyball\n   4. Hockey\n   5. Polo ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         switch(op2){
             case "1":
                 miTorneo.setTipoDeporte(TipoDeporte.FUTBOL);
@@ -271,7 +272,7 @@ public class Torneo {
                 break;
         }
         
-        String op3=entrada("    Tipo de Enfrentamiento\n1. Maculino\n2. Femenino\n3. Mixto ");
+        String op3 = JOptionPane.showInputDialog(null,"      Tipo de Enfrentamiento\n   1. Maculino\n   2. Femenino\n   3. Mixto ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         switch(op3){
             case "1":
                 miTorneo.setTipoE(TipoEnfrentamiento.MASCULINO);
@@ -285,9 +286,9 @@ public class Torneo {
             
         }
         
-        miTorneo.setFechaInicioInscripcion(guardarFecha("ingrese la fecha de inicio de las inscrpciones con formato año/mes/dia/hora/minuto"));
-        miTorneo.setFechaFinalInscripcion(guardarFecha("ingrese la fecha de finalizacion de las inscripciones con formato año/mes/dia/hora/minuto"));
-        miTorneo.setFechaInicioCompeticion(guardarFecha("ingrese la fecha de inicio del torneo con formato año/mes/dia/hora/minuto"));
+        miTorneo.setFechaInicioInscripcion(guardarFecha(" Ingrese la fecha de inicio de las inscrpciones en formato año/mes/dia/hora/minuto"));
+        miTorneo.setFechaFinalInscripcion(guardarFecha(" Ingrese la fecha de finalizacion de las inscripciones en formato año/mes/dia/hora/minuto"));
+        miTorneo.setFechaInicioCompeticion(guardarFecha(" Ingrese la fecha de inicio del torneo en formato año/mes/dia/hora/minuto"));
         
         torneos.add(miTorneo);
         
@@ -298,7 +299,7 @@ public class Torneo {
         if(this.equipos.size()<this.numeroMaxEquipo){
             Equipo miEquipo=new Equipo();
             
-            String name=entrada("ingrese el nombre del equipo ");
+            String name = JOptionPane.showInputDialog(null,"  Ingrese el nombre del equipo ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             boolean esta=false;
             //verificar que no existan equipos con el mismo nombre
             for(int i=0;i<this.equipos.size();i++){

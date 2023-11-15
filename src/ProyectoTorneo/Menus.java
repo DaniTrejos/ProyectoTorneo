@@ -30,7 +30,7 @@ public class Menus{
                                 4. Información de fechas
                                 5. Enfrentamientos
                                 6. Tabla general
-                                7. Salir""".indent(5), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                                7. Salir""".indent(4), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
 
                 if (input == null) {
@@ -62,27 +62,27 @@ public class Menus{
                             break;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-7");
+                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-7","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                 }
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
+                JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
 
     public void validacionTorneoModificarFechas(){
-        String nombreTorneo = JOptionPane.showInputDialog("Ingrese el nombre del torneo al cual quiere consultarle las fechas");
+        String nombreTorneo = JOptionPane.showInputDialog(null,"Ingrese el nombre del torneo al cual quiere consultarle las fechas","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         boolean torneoEncontrado = false;
         for (int i = 0; i < listaTorneos.size(); i++) {
             Torneo torneo = listaTorneos.get(i);
             if (nombreTorneo.equals(torneo.getNombreTorneo())) {
-                menuModificarFechas();
+                menuModificarFechas(torneo);
                 torneoEncontrado = true;
                 break;
             }
         }
         if (!torneoEncontrado) {
-            JOptionPane.showMessageDialog(null, "No se encontró un torneo con ese nombre");
+            JOptionPane.showMessageDialog(null, "No se encontró un torneo con ese nombre","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
@@ -124,7 +124,7 @@ public class Menus{
 
     //metodo para evitar repiticion dentro del menu
 
-    public void menuModificarFechas(){
+    public void menuModificarFechas(Torneo torneo){
         int option = 0;
 
         while (option != 4) {
@@ -140,17 +140,18 @@ public class Menus{
                     switch (option) {
                         case 1:
 
+                            // He pasado torneo (nombre del torneo encontrado) por parametro, para modificar aquí adentro el inicio de inscripción sin tener que ingresar fechas a modificar
                             int resultado = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 1);
 
                             if (resultado == -1) {
                                 JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
                             } else {
-                                LocalDateTime nuevaFecha = miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto");
+                                LocalDateTime nuevaFecha1 = miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto");
 
-                                // Accedo al objeto Torneo específico en el ArrayList y establezco la nueva fecha
-                                listaTorneos.get(resultado).setFechaInicioInscripcion(nuevaFecha);
-                                JOptionPane.showMessageDialog(null, "Fechas de inicio de inscripciones modificadas");
-                            }
+                                //Accedo al objeto Torneo específico en el ArrayList y establezco la nueva fecha
+                                listaTorneos.get(resultado).setFechaInicioInscripcion(nuevaFecha1);
+                               JOptionPane.showMessageDialog(null, "Fechas de inicio de inscripciones modificadas");
+                           }
                             break;
 
                         case 2:
@@ -305,46 +306,7 @@ public class Menus{
 
     }
 
-    public void mostrarOpcionesDeportes(){
-        int option = 0;
 
-        while (option != 6) {
-            try {
-                String input = JOptionPane.showInputDialog(null,"     1. Futbol \n     2. Baloncesto\n     3."+
-                        " Volleyball\n     4. Hockey\n     5. Polo\n     6. Atras","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
-                if (input == null) {
-
-                    break;
-                }
-                option = Integer.parseInt(input);
-
-                if (option > 0 && option <= 6) {
-                    switch (option) {
-                        case 1:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 2:
-                           
-                            break;
-                        case 3:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 4:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 5:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 6:
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-6");
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
-            }
-        }
-    }
 
     public void validarExistenciaTorneo(){
         if(listaTorneos.size()<1){
@@ -361,7 +323,7 @@ public class Menus{
                 }
             }
             if(c==false){
-                JOptionPane.showMessageDialog(null, "No se encontraron resultados ");
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
@@ -413,40 +375,40 @@ public class Menus{
 
     public void consultarFechas() {
         if (listaTorneos.size()<1) {
-            JOptionPane.showMessageDialog(null, "No hay torneos disponibles para consultar fechas");
+            JOptionPane.showMessageDialog(null, "No hay torneos disponibles para consultar fechas","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         } else {
-            String nombreTorneo = JOptionPane.showInputDialog("Ingrese el nombre del torneo al cual quiere consultarle las fechas");
+            String nombreTorneo = JOptionPane.showInputDialog(null, "Ingrese el nombre del torneo al cual quiere consultarle las fechas","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             boolean torneoEncontrado = false;
 
             for (int i = 0; i < listaTorneos.size(); i++) {
                 Torneo torneo = listaTorneos.get(i);
                 if (nombreTorneo.equals(torneo.getNombreTorneo())) {
                     JOptionPane.showMessageDialog(null,
-                            "                Fechas del Torneo " + torneo.getNombreTorneo() + ":\n" +
-                                    "Fecha inicio de la inscripción: " + torneo.getFechaInicioInscripcion().toLocalDate() +
-                                    "\n Hora de inicio: " + torneo.getFechaInicioInscripcion().toLocalTime() + "\n" +
+                            "                       Fechas del Torneo " + torneo.getNombreTorneo() + "\n\n" +
+                                    "  Fecha inicio de la inscripción: " + torneo.getFechaInicioInscripcion().toLocalDate() +
+                                    "\n  Hora de inicio: " + torneo.getFechaInicioInscripcion().toLocalTime() + "\n" +
                                     "------------------------------------------------------------------------" + "\n"+
-                                    "Fecha inicio de la inscripción: " + torneo.getFechaFinalInscripcion().toLocalDate() +
-                                    "\nHora de cierre: " + torneo.getFechaFinalInscripcion().toLocalTime() + "\n" +
+                                    "  Fecha inicio de la inscripción: " + torneo.getFechaFinalInscripcion().toLocalDate() +
+                                    "\n  Hora de cierre: " + torneo.getFechaFinalInscripcion().toLocalTime() + "\n" +
                                     "------------------------------------------------------------------------" + "\n" +
-                                    "Fecha inicio de la competición: " + torneo.getFechaInicioCompeticion().toLocalDate() +
-                                    "\nHora de inicio: " + torneo.getFechaInicioCompeticion().toLocalTime());
+                                    "  Fecha inicio de la competición: " + torneo.getFechaInicioCompeticion().toLocalDate() +
+                                    "\n  Hora de inicio: " + torneo.getFechaInicioCompeticion().toLocalTime(),"Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                     torneoEncontrado = true;
                     break;
                 }
             }
             if (!torneoEncontrado) {
-                JOptionPane.showMessageDialog(null, "No se encontró un torneo con ese nombre");
+                JOptionPane.showMessageDialog(null, "No se encontró un torneo con ese nombre","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }
 
     public void obtenerFechaTorneo(ArrayList<Torneo> listaTorneos){
         if(listaTorneos.size()<1){
-            JOptionPane.showMessageDialog(null, "No hay fechas disponibles para modificar");
+            JOptionPane.showMessageDialog(null, "No hay fechas disponibles para modificar","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         }
         else{
-            menuModificarFechas();
+            //menuModificarFechas();
         }
     }
 
@@ -518,7 +480,7 @@ public class Menus{
                             }
                         
                         if(encontrada==false){
-                            JOptionPane.showMessageDialog(null, "No se encontro el nombre del equipo");
+                            JOptionPane.showMessageDialog(null, "No se encontro el nombre del equipo","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                             if(j>0){
                                 j=j-1;
                             }
@@ -545,14 +507,14 @@ public class Menus{
                   }
                   
                   else{
-                      JOptionPane.showMessageDialog(null, "El tipo de enfrentamiento no coincide con el tipo del torneo ");
+                      JOptionPane.showMessageDialog(null, "El tipo de enfrentamiento no coincide con el tipo del torneo ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                       c=true;
                   }
 
                 }
                 else{
                     c=true;
-                    JOptionPane.showMessageDialog(null, "El tipo de deporte no coincide con el tipo de deporte del torneo");
+                    JOptionPane.showMessageDialog(null, "El tipo de deporte no coincide con el tipo de deporte del torneo","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                 }
                 c=true;
                 
@@ -560,8 +522,51 @@ public class Menus{
         }
             
           if(c==false){
-              JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ");
+              JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
           }
     }
+
+     /*  public void mostrarOpcionesDeportes(){
+        int option = 0;
+
+        while (option != 6) {
+            try {
+                String input = JOptionPane.showInputDialog(null,"     1. Futbol \n     2. Baloncesto\n     3."+
+                        " Volleyball\n     4. Hockey\n     5. Polo\n     6. Atras","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                if (input == null) {
+
+                    break;
+                }
+                option = Integer.parseInt(input);
+
+                if (option > 0 && option <= 6) {
+                    switch (option) {
+                        case 1:
+                            miTorneo.crearEquipo();
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+                            miTorneo.crearEquipo();
+                            break;
+                        case 4:
+                            miTorneo.crearEquipo();
+                            break;
+                        case 5:
+                            miTorneo.crearEquipo();
+                            break;
+                        case 6:
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-6");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
+            }
+        }
+    }
+
+   */
 
 }
