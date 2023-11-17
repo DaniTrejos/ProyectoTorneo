@@ -14,7 +14,7 @@ public class NewMain {
 
         Menus menus = new Menus();
         menus.menuPrincipal();
-        System.out.print("si funciona");
+        
     }
     
 }
