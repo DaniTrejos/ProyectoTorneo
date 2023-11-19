@@ -73,7 +73,7 @@ public class Equipo {
         boolean iDExistente;
 
         do {
-            codigoJugador = torneo.verificarMensajeEntrada("Ingrese el id del jugador: ");
+            codigoJugador = torneo.verificarMensajeEntrada("                Ingrese el id del jugador ");
             // Verificar si el código del jugador ya existe en el ArrayList
             iDExistente = false;
 
@@ -90,18 +90,31 @@ public class Equipo {
 
         return codigoJugador;
     }
+
+    Menus menus = new Menus();
+    public int edadJugador() {
+
+        int edad1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del jugador: "));
+        return edad1;
+    }
+
+
     
     public void registrarJugador(){
         
         Jugador miJugador=new Jugador();
 
         miJugador.setId(verificarJugador(listaJugadores));
-        miJugador.setNombre(entrada("Ingrese el nombre: "));
-        miJugador.setApellido(entrada("Ingrese el apellido: "));
-        miJugador.setEdad(Integer.parseInt(entrada("Ingrese la edad: ")));
-        miJugador.setEmail(entrada("Ingrese el email: "));
-        miJugador.setNumeroCelular(entrada("Ingrese el numero de celular: "));
-        String op=entrada("Género:\n1. Masculino\n2. Femenino\n3. Otro ");
+        miJugador.setNombre(JOptionPane.showInputDialog(null, "                      Ingrese el nombre ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miJugador.setApellido(JOptionPane.showInputDialog(null, "                     Ingrese el apellido ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miJugador.setEdad(Integer.parseInt(JOptionPane.showInputDialog(null, "                       Ingrese la edad ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE)));
+
+        //Aquí va el set, para guardar la edad del jugador, después de que se valida su rango con la edad máxima del torneo
+
+
+        miJugador.setEmail(JOptionPane.showInputDialog(null, "                      Ingrese el email ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miJugador.setNumeroCelular(JOptionPane.showInputDialog(null, "            Ingrese el numero de celular ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        String op=JOptionPane.showInputDialog(null, "                              Género\n  1. Masculino\n  2. Femenino\n  3. Otro ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
         switch(op){
             case "1":
                miJugador.setGenero(Genero.MASCULINO);
@@ -117,7 +130,7 @@ public class Equipo {
         
         //fecha de nacimiento
 
-        JOptionPane.showMessageDialog(null, "Jugador registrado con éxito ");
+        JOptionPane.showMessageDialog(null, "¡Jugador registrado con éxito!");
         listaJugadores.add(miJugador);
     }
     
@@ -129,11 +142,11 @@ public class Equipo {
     //temporal
     public Persona crearPersona(){
         Persona miPersona=new Persona();
-        miPersona.setNombre(entrada("Ingrese el nombre"));
-        miPersona.setApellido(entrada("Ingrese el apellido"));
-        miPersona.setId(entrada("Ingrese el ID"));
-        miPersona.setEmail(entrada("Ingrese el email"));
-        miPersona.setNumeroCelular(entrada("Ingrese el número de celular "));
+        miPersona.setNombre(JOptionPane.showInputDialog(null, "                     Ingrese el nombre", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miPersona.setApellido(JOptionPane.showInputDialog(null, "                     Ingrese el apellido", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miPersona.setId(JOptionPane.showInputDialog(null, "                        Ingrese el ID", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miPersona.setEmail(JOptionPane.showInputDialog(null, "                      Ingrese el email", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        miPersona.setNumeroCelular(JOptionPane.showInputDialog(null, "            Ingrese el número de celular ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         
         return miPersona;
     }

@@ -139,9 +139,10 @@ public class Menus{
                 if (option > 0 && option <= 4) {
                     switch (option) {
                         case 1:
-
+                            torneo.setFechaInicioInscripcion(miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto"));
+                            //JOptionPane.showMessageDialog(null, "Fechas de inicio de inscripciones modificadas");
                             // He pasado torneo (nombre del torneo encontrado) por parametro, para modificar aquí adentro el inicio de inscripción sin tener que ingresar fechas a modificar
-                            int resultado = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 1);
+                            /*int resultado = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 1);
 
                             if (resultado == -1) {
                                 JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
@@ -152,10 +153,14 @@ public class Menus{
                                 listaTorneos.get(resultado).setFechaInicioInscripcion(nuevaFecha1);
                                JOptionPane.showMessageDialog(null, "Fechas de inicio de inscripciones modificadas");
                            }
+
+                             */
                             break;
 
                         case 2:
-                            int resultado2 = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 2);
+                            torneo.setFechaFinalInscripcion(miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto"));
+                            JOptionPane.showMessageDialog(null, "Fechas de finalización de inscripciones modificadas");
+                            /*int resultado2 = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 2);
 
                             if (resultado2 == -1) {
                                 JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
@@ -166,10 +171,14 @@ public class Menus{
                                 listaTorneos.get(resultado2).setFechaFinalInscripcion(nuevaFecha);
                                 JOptionPane.showMessageDialog(null, "Fechas de finalización de inscripciones modificadas");
                             }
+
+                             */
                             break;
 
                         case 3:
-                            int resultado3 = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 3);
+                            torneo.setFechaInicioCompeticion(miTorneo.guardarFecha("Ingrese la nueva fecha en formato año/mes/día/hora/minuto"));
+                            JOptionPane.showMessageDialog(null, "Fechas de inicio del torneo modificadas");
+                            /*int resultado3 = modificarFechasTorneo("Ingrese la fecha que desea modificar: ", 3);
 
                             if (resultado3 == -1) {
                                 JOptionPane.showMessageDialog(null, "No se ha encontrado la fecha que quiere modificar");
@@ -178,6 +187,8 @@ public class Menus{
                                 listaTorneos.get(resultado3).setFechaInicioCompeticion(nuevaFecha);
                                 JOptionPane.showMessageDialog(null, "Fechas de inicio del torneo modificadas");
                             }
+
+                             */
                             break;
 
                         case 4:
@@ -248,7 +259,7 @@ public class Menus{
         JOptionPane.showMessageDialog(null, scrollPane, "Marcadores de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
     }
 
-    static class TableCellRenderer extends DefaultTableCellRenderer {
+    public static class TableCellRenderer extends DefaultTableCellRenderer {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -314,7 +325,7 @@ public class Menus{
         }
         else{
             //Buscar el torneo  donde se desea registrar el equipo
-            String s = JOptionPane.showInputDialog("Ingrese el nombre del torneo en el que desea registrar el equipo ");
+            String s = JOptionPane.showInputDialog(null,"   Ingrese el nombre del torneo en el que desea registrar el equipo ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             boolean c = false;
             for(int i = 0; i < listaTorneos.size(); i++){
                 if(listaTorneos.get(i).getNombreTorneo().equals(s)){
@@ -447,7 +458,7 @@ public class Menus{
     
      public void agendarEnfrentamiento(){
             Enfrentamiento enfren=new Enfrentamiento();
-            String buscar=miTorneo.entrada("Ingrese el nombre del torneo donde desea registrar el enfretamiento");
+            String buscar=miTorneo.entrada("     Ingrese el nombre del torneo donde desea registrar el enfretamiento");
             boolean c=false;
             for(int i=0;i<listaTorneos.size()&&c==false;i++){
               //Buscar el torneo donde se registrara el enfrentamiento
