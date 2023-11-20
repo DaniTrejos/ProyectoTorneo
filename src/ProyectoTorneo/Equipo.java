@@ -92,15 +92,18 @@ public class Equipo {
     }
 
     Menus menus = new Menus();
-    public int edadJugador() {
+   /* public int edadJugador(int edM) {
 
         int edad1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del jugador: "));
+        if(edad1<edM){
+            
+        }
         return edad1;
-    }
+    }*/
 
 
     
-    public void registrarJugador(){
+    public void registrarJugador(int edM){
         
         Jugador miJugador=new Jugador();
 
@@ -108,8 +111,16 @@ public class Equipo {
         miJugador.setNombre(JOptionPane.showInputDialog(null, "                      Ingrese el nombre ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         miJugador.setApellido(JOptionPane.showInputDialog(null, "                     Ingrese el apellido ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         miJugador.setEdad(Integer.parseInt(JOptionPane.showInputDialog(null, "                       Ingrese la edad ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE)));
-
-        //Aquí va el set, para guardar la edad del jugador, después de que se valida su rango con la edad máxima del torneo
+        //Esta en mi propuesta para validar la edad maxima
+        int edad1 = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la edad del jugador: "));
+        if(edad1<edM){
+            miJugador.setEdad(edad1);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "El jugador excede la edad maxima para este torneo");
+        }
+        
+//Aquí va el set, para guardar la edad del jugador, después de que se valida su rango con la edad máxima del torneo
 
 
         miJugador.setEmail(JOptionPane.showInputDialog(null, "                      Ingrese el email ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));

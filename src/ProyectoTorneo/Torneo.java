@@ -20,6 +20,7 @@ public class Torneo {
     //private Genero genero;
     ArrayList<Equipo>equipos=new ArrayList<>();
     ArrayList<Enfrentamiento>enfrentamientos=new ArrayList<>();
+    
    
     public Torneo(){
     }
@@ -313,7 +314,7 @@ public class Torneo {
 
     public int obtenerRangoEdad() {
         int numeroEdad;
-
+  
         do {
             try {
                 String input = verificarMensajeEntrada("                 Ingrese la edad máxima");
@@ -460,7 +461,7 @@ public class Torneo {
                 int num=Integer.parseInt(JOptionPane.showInputDialog(null, "Ingrese la cantidad de jugadores que desea añadir ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
 
                 for(int i=0;i<num;i++){
-                    miEquipo.registrarJugador();
+                    miEquipo.registrarJugador(this.getEdadMaxJugadores());
                 }
                 equipos.add(miEquipo);
                 JOptionPane.showMessageDialog(null,"Equipo registrado con exito "+ miEquipo.listaJugadores.toString(), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);

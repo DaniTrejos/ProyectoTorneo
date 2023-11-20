@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -454,11 +455,12 @@ public class Menus{
     }
 
     
-   //Temporal no se donde mas crear este metodo
+   
+    //Temporal no se donde mas crear este metodo
     
      public void agendarEnfrentamiento(){
             Enfrentamiento enfren=new Enfrentamiento();
-            String buscar=miTorneo.entrada("     Ingrese el nombre del torneo donde desea registrar el enfretamiento");
+            String buscar=miTorneo.entrada("Ingrese el nombre del torneo donde desea registrar el enfretamiento");
             boolean c=false;
             for(int i=0;i<listaTorneos.size()&&c==false;i++){
               //Buscar el torneo donde se registrara el enfrentamiento
@@ -504,17 +506,16 @@ public class Menus{
                     if(enfren.getFechaEndrentamiento().isBefore(LocalDateTime.now())){
                         enfren.setEstadoEnfrentamiento(EstadoEnfrentamiento.PENDIENTE);
                     }
-                    else if(enfren.getFechaEndrentamiento().isAfter(LocalDateTime.now())){
-                        enfren.setEstadoEnfrentamiento(EstadoEnfrentamiento.FINALIZADO);
-                    }
-                    
-                    else{
+                    else if(LocalDateTime.now().equals(enfren.getFechaEndrentamiento())){
                         enfren.setEstadoEnfrentamiento(EstadoEnfrentamiento.ENJUEGO);
                     }
-                    
+                  
                     //Registrar jueces para este enfrentamiento
                     
                     enfren.registrarJuez();
+                    
+                    //Adicionar enfrentamiento al torneo
+                    listaTorneos.get(i).enfrentamientos.add(enfren);
                   }
                   
                   else{
@@ -536,7 +537,150 @@ public class Menus{
               JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
           }
     }
+     
+     //metodo para aplazar enfrentamiento
+     
+     public void aplazarEnfrentamiento(){
+         String buscar=miTorneo.entrada("Ingrese el Id del enfrentamiento que desea aplazar ");
+         boolean control=false;
+         
+         //buscar enfrentamiento
+         for(int i=0;i<listaTorneos.size();i++){
+             for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
+                 if(listaTorneos.get(i).enfrentamientos.get(j).getId().equals(buscar)){
+                     String razon=miTorneo.entrada("Ingrese el motivo por el cual se aplazar el enfrentamiento");
+                     listaTorneos.get(i).enfrentamientos.get(j).setEstadoEnfrentamiento(EstadoEnfrentamiento.APLAZADO);
+                     listaTorneos.get(i).enfrentamientos.get(j).setFechaEndrentamiento(miTorneo.guardarFecha("Ingrese la nueva fecha de inicio en el formato: año/mes/dia/hora/minuto"));
+                     control=true;
+                     JOptionPane.showMessageDialog(null, "El enfrentamiento se aplazo con exito ");
+                 }
+             }}
+         
+         if(control==false){
+             JOptionPane.showMessageDialog(null, "No se encontraron enfrentamientos registrados con el Id que ingreso ");
+         }
+     }
+     
+     //Metodo para buscar enfrentamientos donde participara el equipo o juez
+     
+     public ArrayList<Enfrentamiento> buscarParticipacionJ(){
+         ArrayList<Enfrentamiento>retorno=new ArrayList<>();
+         String buscar=miTorneo.entrada("Ingrese el nombre del equipo para consultar");
+         for(int i=0;i<listaTorneos.size();i++){
+             for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
+                 for(int k=0;k<listaTorneos.get(i).enfrentamientos.get(j).listaEquipos.size();k++){
+                     if(listaTorneos.get(i).enfrentamientos.get(j).listaEquipos.get(k).getNombreEquipo().equals(buscar)){
+                         retorno.add(listaTorneos.get(i).enfrentamientos.get(j));
+                     }
+                 }
+             }
+         }
+         return retorno;
+     }
+     
+     public ArrayList<Enfrentamiento> buscarParticipacionJu(){
+         ArrayList<Enfrentamiento>retorno=new ArrayList<>();
+         String buscar=miTorneo.entrada("Ingrese el numero de licencia que desea buscar");
+         for(int i=0;i<listaTorneos.size();i++){
+             for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
+                 for(int k=0;k<listaTorneos.get(i).enfrentamientos.get(j).listajueces.size();k++){
+                     if(listaTorneos.get(i).enfrentamientos.get(j).listajueces.get(k).getLicencia().equals(buscar)){
+                         retorno.add(listaTorneos.get(i).enfrentamientos.get(j));
+                     }
+                 }
+             }
+         }
+         return retorno;
+     }
+     
+     public static void mostrarTablaEnfrentamientos(ArrayList<Enfrentamiento> enfrentamientos) {
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID");
+    model.addColumn("Lugar");
+    model.addColumn("Estado");
+    model.addColumn("Fecha");
+    model.addColumn("Tipo Deporte");
+    model.addColumn("Tipo Enfrentamiento");
+    for (Enfrentamiento en : enfrentamientos) {
+        model.addRow(new Object[]{en.getId(), en.getLugar(), en.getEstadoEnfrentamiento(),en.getFechaEndrentamiento(), en.getTipoDeporte(),en.getTipoEnfrentamiento()});
+    }
+    
+    JTable table = new JTable(model);
+    
+    JScrollPane scrollPane = new JScrollPane(table);
+    Dimension preferredSize = new Dimension(600, 300); // Ajusta este valor según tus necesidades
+    scrollPane.setPreferredSize(preferredSize);
+    
+    JFrame frame = new JFrame("Marcadores de los enfrentamientos");
+    //JScrollPane scrollPane = new JScrollPane(table);
+    JOptionPane.showMessageDialog(null, scrollPane, "Lista de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
+}
 
+     public void listaJugadores(){
+         String buscar=miTorneo.entrada("Ingrese el nombre del equipo");
+          ArrayList<Jugador>ju=new ArrayList<>();
+          boolean c=false;
+         for(int i=0;i<listaTorneos.size()&&c==false;i++){
+             for(int j=0;i<listaTorneos.get(i).equipos.size();j++){
+                 if(listaTorneos.get(i).equipos.get(j).getNombreEquipo().equals(buscar)){
+                    ju=listaTorneos.get(i).equipos.get(i).listaJugadores;
+                    c=true;
+                 }
+             }
+         }
+         
+         //Crear tabla
+         
+         DefaultTableModel model = new DefaultTableModel();
+         model.addColumn("ID");
+         model.addColumn("Nombre");
+         model.addColumn("Apellido");
+         model.addColumn("Edad");
+         model.addColumn("Fecha Nacimiento");
+         model.addColumn("Genero");
+         model.addColumn("N Celular");
+         model.addColumn("Email");
+         
+         for (Jugador per : ju) {
+             model.addRow(new Object[]{per.getId(),per.getNombre(),per.getApellido(),per.getEdad(),per.getEdad(),per.getFechaNacimiento(),per.getGenero(),per.getNumeroCelular(),per.getEmail()});
+         }
+         
+        JTable table = new JTable(model);
+    
+        JScrollPane scrollPane = new JScrollPane(table);
+        Dimension preferredSize = new Dimension(600, 300); // Ajusta este valor según tus necesidades
+        scrollPane.setPreferredSize(preferredSize);
+
+        JFrame frame = new JFrame("Marcadores de los enfrentamientos");
+        //JScrollPane scrollPane = new JScrollPane(table);
+        JOptionPane.showMessageDialog(null, scrollPane, "Lista de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
+         
+     }
+     
+     public void listaJueces(){
+         
+     }
+    
+     public ArrayList<Juez> juecesR(int index){
+         ArrayList<Juez>retorno=new ArrayList<>();
+         int num=0;
+         for(int i=0;i<listaTorneos.get(index).enfrentamientos.size();i++){
+             for(int j=0;j<listaTorneos.get(index).enfrentamientos.get(i).listajueces.size();j++){
+                 for(int k=0;k<retorno.size();k++){
+                     if(listaTorneos.get(index).enfrentamientos.get(i).listajueces.get(j).getLicencia().equals(retorno.get(k).getLicencia())){
+                        num=num+1;
+                     }
+                 }
+                 
+                 //agregados porque no se encontro el numero de licencia en el arrayList nuevo
+                 if(num!=0){
+                     retorno.add(listaTorneos.get(index).enfrentamientos.get(i).listajueces.get(j));
+                 }
+             }
+         }
+         return retorno;
+     }
+     
      /*  public void mostrarOpcionesDeportes(){
         int option = 0;
 

@@ -1,32 +1,26 @@
 package ProyectoTorneo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Jugador extends Persona{
-    private Date fechaNacimiento = new Date();
+    private LocalDateTime fechaNacimiento;
     private Genero genero;
     private int edad;
 
-    
-
-    public Jugador(String nombre, String apellido, String numeroCelular, String email,String id, Date fechaNacimiento, Genero genero, int edad) {
-        super(nombre, apellido, numeroCelular, email,id);
+    public Jugador(LocalDateTime fechaNacimiento, Genero genero, int edad, String nombre, String apellido, String numeroCelular, String email, String id) {
+        super(nombre, apellido, numeroCelular, email, id);
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
         this.edad = edad;
-        
     }
 
-    public Jugador(){
-
-    }
-
-    public Date getFechaNacimiento() {
+    public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -46,12 +40,8 @@ public class Jugador extends Persona{
         this.edad = edad;
     }
 
-    @Override
-    public String toString() {
-        return "Jugador{" + "fechaNacimiento=" + fechaNacimiento + ", genero=" + genero + ", edad=" + edad + '}';
+    public Jugador() {
     }
-    
-    
 
-   
+    
 }
