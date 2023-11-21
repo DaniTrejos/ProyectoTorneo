@@ -461,7 +461,7 @@ public class Torneo {
                 for(int i=0;i<num;i++){
                     miEquipo.registrarJugador(this.getEdadMaxJugadores());
                 }
-                equipos.add(miEquipo);
+                this.equipos.add(miEquipo);
                 JOptionPane.showMessageDialog(null,"¡Equipo registrado con exito! ");
                 //+ miEquipo.listaJugadores.toString()  Se puede adicionar a la linea anterior para veirificar que se haya guardado equipo
              }

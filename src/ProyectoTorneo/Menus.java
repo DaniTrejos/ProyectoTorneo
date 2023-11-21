@@ -20,7 +20,7 @@ public class Menus{
     
     //Datos quemados
     public void datos(){
-        Torneo t=new Torneo("torneo",2,TipoDeporte.FUTBOL,2,TipoTorneo.LOCAL,12.0,20,LocalDateTime.of(2023, Month.MARCH, 12, 3, 30),LocalDateTime.of(2023, Month.MARCH, 16, 3, 30),LocalDateTime.of(2023, Month.MARCH, 17, 3, 30),TipoEnfrentamiento.MASCULINO);
+        Torneo t=new Torneo("torneo",3,TipoDeporte.FUTBOL,2,TipoTorneo.LOCAL,12.0,20,LocalDateTime.of(2023, Month.MARCH, 12, 3, 30),LocalDateTime.of(2023, Month.MARCH, 16, 3, 30),LocalDateTime.of(2023, Month.MARCH, 17, 3, 30),TipoEnfrentamiento.MASCULINO);
         Persona p=new Persona("name","apellido","345","email","345");
         Equipo e1=new Equipo("equipo",p,3);
         e1.listaJugadores.add(new Jugador(LocalDateTime.of(2022, Month.MARCH, 6, 6, 10),Genero.MASCULINO,13,"juan","apellido","678","email","567"));
@@ -675,7 +675,7 @@ public class Menus{
              for(int j=0;i<listaTorneos.get(i).equipos.size();j++){
                  if(listaTorneos.get(i).equipos.get(j).getNombreEquipo().equals(buscar)){
                     ju=listaTorneos.get(i).equipos.get(i).listaJugadores;
-                    c=true;
+                  
                     DefaultTableModel model = new DefaultTableModel();
                     model.addColumn("ID");
                     model.addColumn("Nombre");
@@ -699,6 +699,7 @@ public class Menus{
                    JFrame frame = new JFrame("Marcadores de los enfrentamientos");
                    //JScrollPane scrollPane = new JScrollPane(table);
                    JOptionPane.showMessageDialog(null, scrollPane, "Lista de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
+                     c=true;
                  }
              }
          }
