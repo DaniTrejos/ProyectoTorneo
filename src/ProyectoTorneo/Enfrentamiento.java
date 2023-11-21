@@ -104,15 +104,15 @@ public class Enfrentamiento {
     }
     //temporal
     public void registrarJuez(){
-        int num=Integer.parseInt(entrada("Cuantos juecez desea registrar"));
+        int num=Integer.parseInt(JOptionPane.showInputDialog(null,"           ¿Cuantos jueces desea registrar?", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         for(int i=0;i<num;i++){
          Juez miJuez=new Juez();
-         miJuez.setId(entrada("Ingrese el id"));
-         miJuez.setNombre(entrada("Ingrese el nombre del juez"));
-         miJuez.setApellido(entrada("Ingrese el apellido"));
-         miJuez.setLicencia(entrada("Ingrese el numero de licencia"));
-         miJuez.setEmail("Ingrese el email");
-         miJuez.setNumeroCelular(entrada("Ingrese el numero de celular")); 
+         miJuez.setId(JOptionPane.showInputDialog(null,"                     Ingrese el id", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+         miJuez.setNombre(JOptionPane.showInputDialog(null,"                 Ingrese el nombre del juez","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+         miJuez.setApellido(JOptionPane.showInputDialog(null,"                    Ingrese el apellido","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+         miJuez.setLicencia(JOptionPane.showInputDialog(null,"               Ingrese el numero de licencia","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+         miJuez.setEmail(JOptionPane.showInputDialog(null,"                     Ingrese el email","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+         miJuez.setNumeroCelular(JOptionPane.showInputDialog(null,"               Ingrese el numero de celular","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
          listajueces.add(miJuez);
         }
         

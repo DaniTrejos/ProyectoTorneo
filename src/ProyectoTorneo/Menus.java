@@ -281,10 +281,10 @@ public class Menus{
 
         int option = 0;
 
-        while (option != 4) {
+        while (option != 6) {
             try {
-                String input = JOptionPane.showInputDialog(null,"     1. Agregar resultados\n     2. Consultar Información de los Equipos \n     3."+
-                        " Consultar Información de los Jueces \n     4. Atrás", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                String input = JOptionPane.showInputDialog(null,"     1. Agregar resultados \n     2. Consultar Información de los Equipos \n     3."+
+                        " Consultar Información de los Jueces \n     4. Mostrar enfrentamientos \n     5. Modificar enfrentamientos \n     6. Atrás", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
                 if (input == null) {
                     break;
@@ -292,7 +292,7 @@ public class Menus{
 
                 option = Integer.parseInt(input);
 
-                if (option > 0 && option <= 4) {
+                if (option > 0 && option <= 6) {
                     switch (option) {
                         case 1:
                             JOptionPane.showMessageDialog(null, "Aquí debe de escoger el deporte y luego automaticamente"+
@@ -302,9 +302,16 @@ public class Menus{
                             JOptionPane.showMessageDialog(null, "Información de equipos consultada");
                             break;
                         case 3:
+
                             JOptionPane.showMessageDialog(null, "Información de los jueces consultada");
                             break;
                         case 4:
+                            //Aquí va mostrar tabla enfrentamientos.
+                            break;
+                        case 5:
+                            aplazarEnfrentamiento();
+                            break;
+                        case 6:
                             break;
                     }
                 } else {
@@ -424,7 +431,7 @@ public class Menus{
         }
     }
 
-    public int modificarFechasTorneo(String mensaje, int condicion){
+    /*public int modificarFechasTorneo(String mensaje, int condicion){
         LocalDateTime fechaABuscar = miTorneo.guardarFecha(mensaje);
 
         int indice = -1; //inicializo en este valor para saber más adelante si la fecha se encontró o no
@@ -454,35 +461,38 @@ public class Menus{
         return indice;
     }
 
+     */
+
     
    
     //Temporal no se donde mas crear este metodo
     
      public void agendarEnfrentamiento(){
             Enfrentamiento enfren=new Enfrentamiento();
-            String buscar=miTorneo.entrada("Ingrese el nombre del torneo donde desea registrar el enfretamiento");
+           // String buscar=miTorneo.entrada("Ingrese el nombre del torneo donde desea registrar el enfretamiento");
+         String buscar=JOptionPane.showInputDialog(null,"  Ingrese el nombre del torneo donde desea registrar el enfretamiento","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
             boolean c=false;
             for(int i=0;i<listaTorneos.size()&&c==false;i++){
               //Buscar el torneo donde se registrara el enfrentamiento
             if(listaTorneos.get(i).getNombreTorneo().equals(buscar)){
-                int op=Integer.parseInt(miTorneo.entrada("Elija el tipo de deporte:\n1. Futbol \n2. Baloncesto \n3. Hockey \n4. Polo \n5. Volleyball "));
+                int op=Integer.parseInt(JOptionPane.showInputDialog(null,"               Elija el tipo de deporte\n  1. Futbol\n  2. Baloncesto\n  3. Hockey \n  4. Polo \n  5. Volleyball","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
                 //verificar que el tipo de deporte sea el mismo del torneo, si se cumple procede a crear el objeto
                 if(verificarTD(op)==listaTorneos.get(i).getTipoDeporte()){
                     
                     //verificar que el el tipo de enfrentamiento corresponda al del torneo
-                  int op1=Integer.parseInt(miTorneo.entrada("Tipo de Enfrentamiento\n1. Maculino\n2. Femenino\n3. Mixto"));
+                  int op1=Integer.parseInt(JOptionPane.showInputDialog(null,"               Tipo de Enfrentamiento\n  1. Masculino\n  2. Femenino\n  3. Mixto","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
                   if(tipoE(op1)==listaTorneos.get(i).getTipoE()){
                       
-                        enfren.setId(miTorneo.entrada("Ingrese el id del enfrentamiento"));
+                        enfren.setId(JOptionPane.showInputDialog(null,"           Ingrese el id del enfrentamiento","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
                         enfren.setFechaEndrentamiento(miTorneo.guardarFecha("Ingrese la fecha de incio del enfrentamiento con formato año/mes/dia/hora/minuto"));
-                        enfren.setLugar(miTorneo.entrada("Ingrese el lugar donde se realizara"));
+                        enfren.setLugar(JOptionPane.showInputDialog(null,"           Ingrese el lugar donde se realizará","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
                         enfren.setTipoDeporte(verificarTD(op));
                         enfren.setTipoEnfrentamiento(tipoE(op1));
                         //Registrar los equipos que participaran buscandolos por el nombre del equipo
-                        int num=Integer.parseInt(miTorneo.entrada("Cuantos equipos dese registrar "));
+                        int num=Integer.parseInt(JOptionPane.showInputDialog(null,"         ¿Cuantos equipos desea registrar?","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
                         for(int j=0;j<num;j++){
                             //se busca el nombre del equipo en la lista de equipos del objeto en la posicion del arraylist torneos
-                            String b=miTorneo.entrada("Ingrese el nombre del equipo que desea agregar ");
+                            String b=JOptionPane.showInputDialog(null,"        Ingrese el nombre del equipo que desea agregar","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                             boolean encontrada=false;
                             for(int k=0;k<listaTorneos.get(i).equipos.size();k++){
                                 //Comparar si el nombre suministrado exista en caso de que si lo agrega a la lista de equipos en la clase enfrentamiento
@@ -493,7 +503,7 @@ public class Menus{
                             }
                         
                         if(encontrada==false){
-                            JOptionPane.showMessageDialog(null, "No se encontro el nombre del equipo","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "No se encontro el nombre del equipo");
                             if(j>0){
                                 j=j-1;
                             }
@@ -519,14 +529,14 @@ public class Menus{
                   }
                   
                   else{
-                      JOptionPane.showMessageDialog(null, "El tipo de enfrentamiento no coincide con el tipo del torneo ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                      JOptionPane.showMessageDialog(null, "El tipo de enfrentamiento no coincide con el tipo del torneo ");
                       c=true;
                   }
 
                 }
                 else{
                     c=true;
-                    JOptionPane.showMessageDialog(null, "El tipo de deporte no coincide con el tipo de deporte del torneo","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El tipo de deporte no coincide con el tipo de deporte del torneo");
                 }
                 c=true;
                 
@@ -534,21 +544,21 @@ public class Menus{
         }
             
           if(c==false){
-              JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+              JOptionPane.showMessageDialog(null, "No se encontro resultados para el torneo que busca ");
           }
     }
      
      //metodo para aplazar enfrentamiento
      
      public void aplazarEnfrentamiento(){
-         String buscar=miTorneo.entrada("Ingrese el Id del enfrentamiento que desea aplazar ");
+         String buscar=JOptionPane.showInputDialog(null,"         Ingrese el Id del enfrentamiento que desea aplazar","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
          boolean control=false;
          
          //buscar enfrentamiento
          for(int i=0;i<listaTorneos.size();i++){
              for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
                  if(listaTorneos.get(i).enfrentamientos.get(j).getId().equals(buscar)){
-                     String razon=miTorneo.entrada("Ingrese el motivo por el cual se aplazar el enfrentamiento");
+                     String razon=JOptionPane.showInputDialog(null,"     Ingrese el motivo por el cual se aplazar el enfrentamiento","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
                      listaTorneos.get(i).enfrentamientos.get(j).setEstadoEnfrentamiento(EstadoEnfrentamiento.APLAZADO);
                      listaTorneos.get(i).enfrentamientos.get(j).setFechaEndrentamiento(miTorneo.guardarFecha("Ingrese la nueva fecha de inicio en el formato: año/mes/dia/hora/minuto"));
                      control=true;
@@ -565,7 +575,7 @@ public class Menus{
      
      public ArrayList<Enfrentamiento> buscarParticipacionJ(){
          ArrayList<Enfrentamiento>retorno=new ArrayList<>();
-         String buscar=miTorneo.entrada("Ingrese el nombre del equipo para consultar");
+         String buscar=JOptionPane.showInputDialog(null,"Ingrese el nombre del equipo para consultar","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
          for(int i=0;i<listaTorneos.size();i++){
              for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
                  for(int k=0;k<listaTorneos.get(i).enfrentamientos.get(j).listaEquipos.size();k++){
@@ -580,7 +590,7 @@ public class Menus{
      
      public ArrayList<Enfrentamiento> buscarParticipacionJu(){
          ArrayList<Enfrentamiento>retorno=new ArrayList<>();
-         String buscar=miTorneo.entrada("Ingrese el numero de licencia que desea buscar");
+         String buscar=JOptionPane.showInputDialog(null,"Ingrese el numero de licencia que desea buscar","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
          for(int i=0;i<listaTorneos.size();i++){
              for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
                  for(int k=0;k<listaTorneos.get(i).enfrentamientos.get(j).listajueces.size();k++){
@@ -617,7 +627,7 @@ public class Menus{
 }
 
      public void listaJugadores(){
-         String buscar=miTorneo.entrada("Ingrese el nombre del equipo");
+         String buscar=JOptionPane.showInputDialog(null,"                  Ingrese el nombre del equipo","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
           ArrayList<Jugador>ju=new ArrayList<>();
           boolean c=false;
          for(int i=0;i<listaTorneos.size()&&c==false;i++){
@@ -680,48 +690,5 @@ public class Menus{
          }
          return retorno;
      }
-     
-     /*  public void mostrarOpcionesDeportes(){
-        int option = 0;
-
-        while (option != 6) {
-            try {
-                String input = JOptionPane.showInputDialog(null,"     1. Futbol \n     2. Baloncesto\n     3."+
-                        " Volleyball\n     4. Hockey\n     5. Polo\n     6. Atras","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
-                if (input == null) {
-
-                    break;
-                }
-                option = Integer.parseInt(input);
-
-                if (option > 0 && option <= 6) {
-                    switch (option) {
-                        case 1:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 2:
-
-                            break;
-                        case 3:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 4:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 5:
-                            miTorneo.crearEquipo();
-                            break;
-                        case 6:
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Elija una opción de 1-6");
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
-            }
-        }
-    }
-
-   */
 
 }

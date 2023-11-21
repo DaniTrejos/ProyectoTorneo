@@ -370,7 +370,6 @@ public class Torneo {
         Torneo miTorneo=new Torneo();
 
         miTorneo.setNombreTorneo(verificarNombreTorneo(torneos));
-        // torneo.setFechaInicioInscripcion(miTorneo.guardarFecha("Ingrese la f.n: "));
         //miTorneo.setNombreTorneo(verificarMensajeEntrada("Ingrese el nombre del torneo"));
         miTorneo.setNumeroMaxEquipo(obtenerNumeroEquipos());  //
         miTorneo.setEdadMaxJugadores(obtenerRangoEdad());  //
@@ -464,8 +463,8 @@ public class Torneo {
                     miEquipo.registrarJugador(this.getEdadMaxJugadores());
                 }
                 equipos.add(miEquipo);
-                JOptionPane.showMessageDialog(null,"Equipo registrado con exito "+ miEquipo.listaJugadores.toString(), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
-            
+                JOptionPane.showMessageDialog(null,"¡Equipo registrado con exito! ");
+                //+ miEquipo.listaJugadores.toString()  Se puede adicionar a la linea anterior para veirificar que se haya guardado equipo
              }
             
             else{

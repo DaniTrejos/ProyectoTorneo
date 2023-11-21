@@ -1,12 +1,13 @@
 package ProyectoTorneo;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class EnfrentamientoAplazado extends Enfrentamiento{
     private String razonAplazamiento;
-    private Date nuevafecha = new Date();
+    private LocalDateTime nuevafecha;
 
-    public EnfrentamientoAplazado(String razonAplazamiento, Date nuevafecha) {
+    public EnfrentamientoAplazado(String razonAplazamiento, LocalDateTime nuevafecha) {
         this.razonAplazamiento = razonAplazamiento;
         this.nuevafecha = nuevafecha;
     }
@@ -23,11 +24,11 @@ public class EnfrentamientoAplazado extends Enfrentamiento{
         this.razonAplazamiento = razonAplazamiento;
     }
 
-    public Date getNuevafecha() {
+    public LocalDateTime getNuevafecha() {
         return nuevafecha;
     }
 
-    public void setNuevafecha(Date nuevafecha) {
+    public void setNuevafecha(LocalDateTime nuevafecha) {
         this.nuevafecha = nuevafecha;
     }
 }
