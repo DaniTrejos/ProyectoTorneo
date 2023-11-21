@@ -9,7 +9,6 @@ public class Torneo {
     private int numeroMaxEquipo;
     private TipoDeporte tipoDeporte;
     private int numeroJugadores;
-
     private TipoTorneo tipotorneo;
     private double valorInscripcion;
     private int edadMaxJugadores;
@@ -25,7 +24,7 @@ public class Torneo {
     public Torneo(){
     }
 
-    public Torneo(String nombreTorneo, int numeroMaxEquipo, TipoDeporte tipoDeporte, int numeroJugadores, TipoTorneo tipotorneo, double valorInscripcion, int edadMaxJugadores, LocalDateTime fechaInicioCompeticion, LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinalInscripcion, TipoEnfrentamiento tipoE, ArrayList<Equipo> equipos) {
+    public Torneo(String nombreTorneo, int numeroMaxEquipo, TipoDeporte tipoDeporte, int numeroJugadores, TipoTorneo tipotorneo, double valorInscripcion, int edadMaxJugadores, LocalDateTime fechaInicioCompeticion, LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinalInscripcion, TipoEnfrentamiento tipoE) {
         this.nombreTorneo = nombreTorneo;
         this.numeroMaxEquipo = numeroMaxEquipo;
         this.tipoDeporte = tipoDeporte;
@@ -37,7 +36,7 @@ public class Torneo {
         this.fechaInicioInscripcion = fechaInicioInscripcion;
         this.fechaFinalInscripcion = fechaFinalInscripcion;
         this.tipoE = tipoE;
-        this.equipos = equipos;
+        
     }
 
             /*public Genero getGenero() {

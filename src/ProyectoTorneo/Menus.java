@@ -6,13 +6,35 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class Menus{
 
     Torneo miTorneo = new Torneo();
     ArrayList<Torneo> listaTorneos = new ArrayList<>();
+    
+    
+    //Datos quemados
+    public void datos(){
+        Torneo t=new Torneo("torneo",2,TipoDeporte.FUTBOL,2,TipoTorneo.LOCAL,12.0,20,LocalDateTime.of(2023, Month.MARCH, 12, 3, 30),LocalDateTime.of(2023, Month.MARCH, 16, 3, 30),LocalDateTime.of(2023, Month.MARCH, 17, 3, 30),TipoEnfrentamiento.MASCULINO);
+        Persona p=new Persona("name","apellido","345","email","345");
+        Equipo e1=new Equipo("equipo",p,3);
+        e1.listaJugadores.add(new Jugador(LocalDateTime.of(2022, Month.MARCH, 6, 6, 10),Genero.MASCULINO,13,"juan","apellido","678","email","567"));
+        e1.listaJugadores.add(new Jugador(LocalDateTime.of(2022, Month.JULY, 10, 7, 10),Genero.MASCULINO,15,"jose","apellido","978","email","0067"));
+        Equipo e2=new Equipo("equipoDos",p,5);
+        t.equipos.add(e1);
+        t.equipos.add(e2);
+        
+        
+                
+        listaTorneos.add(t);
+    }
+    
+    
 
     public void menuPrincipal() {
 
@@ -20,7 +42,7 @@ public class Menus{
 
         int option = 0; // Inicializamos la opción a un valor válido
 
-        while (option != 7) {
+        while (option != 8) {
             try {
                 String input = JOptionPane.showInputDialog(null,
                         """
@@ -31,7 +53,8 @@ public class Menus{
                                 4. Información de fechas
                                 5. Enfrentamientos
                                 6. Tabla general
-                                7. Salir""".indent(4), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                                7. Consultar lista de jugadores por equipo
+                                8. Salir""".indent(4), "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
 
                 if (input == null) {
@@ -39,7 +62,7 @@ public class Menus{
                 }
                 option = Integer.parseInt(input);
 
-                if (option > 0 && option <= 7) {
+                if (option > 0 && option <= 8) {
                     switch (option) {
                         case 1:
                             miTorneo.crearTorneo(listaTorneos);
@@ -57,9 +80,14 @@ public class Menus{
                             mostrarInformacionEnfrentamientos();
                             break;
                         case 6:
-                            mostrarTablaGeneralTorneosIndividuales();
+                            //mostrarTablaGeneralTorneosIndividuales();
+                            mostrarResultados();
                             break;
                         case 7:
+                            listaJugadores();
+                            break;
+                            
+                        case 8:
                             break;
                     }
                 } else {
@@ -204,7 +232,7 @@ public class Menus{
         }
     }
 
-    public void mostrarTablaGeneralTorneosIndividuales(){
+   /* public void mostrarTablaGeneralTorneosIndividuales(){
         int option = 0;
 
         while (option != 6) {
@@ -243,7 +271,7 @@ public class Menus{
                 JOptionPane.showMessageDialog(null, "Ingrese caracteres de tipo numérico");
             }
         }
-    }
+    }*/
 
     public static void mostrarTablaGeneralFutbol() {
         Object[][] data = {
@@ -283,8 +311,8 @@ public class Menus{
 
         while (option != 6) {
             try {
-                String input = JOptionPane.showInputDialog(null,"     1. Agregar resultados \n     2. Consultar Información de los Equipos \n     3."+
-                        " Consultar Información de los Jueces \n     4. Mostrar enfrentamientos \n     5. Modificar enfrentamientos \n     6. Atrás", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+                String input = JOptionPane.showInputDialog(null,"     1. Agregar resultados \n     2. Consultar Participación de los Equipos \n     3."+
+                        " Consultar Participación de los Jueces \n     4. Mostrar enfrentamientos \n     5. Modificar enfrentamientos \n     6. Atrás", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
 
                 if (input == null) {
                     break;
@@ -295,15 +323,28 @@ public class Menus{
                 if (option > 0 && option <= 6) {
                     switch (option) {
                         case 1:
-                            JOptionPane.showMessageDialog(null, "Aquí debe de escoger el deporte y luego automaticamente"+
-                                    " se guardan los resultados con la la clase random");
+                            //JOptionPane.showMessageDialog(null, "Aquí debe de escoger el deporte y luego automaticamente"+
+                                  //  " se guardan los resultados con la la clase random");
+                            String buscar=miTorneo.entrada("Ingrese el id del enfrentamiento donde desea registrar los resultados");
+                            for(int i=0;i<listaTorneos.size();i++){
+                                for(int j=0;j<listaTorneos.get(i).enfrentamientos.size();j++){
+                                    if(listaTorneos.get(i).enfrentamientos.get(j).getId().equals(buscar)){
+                                        listaTorneos.get(i).enfrentamientos.get(j).registrarResultado();
+                                    }
+                                }
+                            }
                             break;
                         case 2:
-                            JOptionPane.showMessageDialog(null, "Información de equipos consultada");
+                            //JOptionPane.showMessageDialog(null, "Información de equipos consultada");
+                            ArrayList<Enfrentamiento>en=buscarParticipacionJ();
+                            mostrarTablaEnfrentamientos(en);
+                            
                             break;
                         case 3:
 
-                            JOptionPane.showMessageDialog(null, "Información de los jueces consultada");
+                            //JOptionPane.showMessageDialog(null, "Información de los jueces consultada");
+                            ArrayList<Enfrentamiento>e=buscarParticipacionJu();
+                            mostrarTablaEnfrentamientos(e);
                             break;
                         case 4:
                             //Aquí va mostrar tabla enfrentamientos.
@@ -635,35 +676,36 @@ public class Menus{
                  if(listaTorneos.get(i).equipos.get(j).getNombreEquipo().equals(buscar)){
                     ju=listaTorneos.get(i).equipos.get(i).listaJugadores;
                     c=true;
+                    DefaultTableModel model = new DefaultTableModel();
+                    model.addColumn("ID");
+                    model.addColumn("Nombre");
+                    model.addColumn("Apellido");
+                    model.addColumn("Edad");
+                    model.addColumn("Fecha Nacimiento");
+                    model.addColumn("Genero");
+                    model.addColumn("N Celular");
+                    model.addColumn("Email");
+
+                    for (Jugador per : ju) {
+                        model.addRow(new Object[]{per.getId(),per.getNombre(),per.getApellido(),per.getEdad(),per.getFechaNacimiento(),per.getGenero(),per.getNumeroCelular(),per.getEmail()});
+                    }
+
+                   JTable table = new JTable(model);
+
+                   JScrollPane scrollPane = new JScrollPane(table);
+                   Dimension preferredSize = new Dimension(660, 300); // Ajusta este valor según tus necesidades
+                   scrollPane.setPreferredSize(preferredSize);
+
+                   JFrame frame = new JFrame("Marcadores de los enfrentamientos");
+                   //JScrollPane scrollPane = new JScrollPane(table);
+                   JOptionPane.showMessageDialog(null, scrollPane, "Lista de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
                  }
              }
          }
          
          //Crear tabla
          
-         DefaultTableModel model = new DefaultTableModel();
-         model.addColumn("ID");
-         model.addColumn("Nombre");
-         model.addColumn("Apellido");
-         model.addColumn("Edad");
-         model.addColumn("Fecha Nacimiento");
-         model.addColumn("Genero");
-         model.addColumn("N Celular");
-         model.addColumn("Email");
          
-         for (Jugador per : ju) {
-             model.addRow(new Object[]{per.getId(),per.getNombre(),per.getApellido(),per.getEdad(),per.getEdad(),per.getFechaNacimiento(),per.getGenero(),per.getNumeroCelular(),per.getEmail()});
-         }
-         
-        JTable table = new JTable(model);
-    
-        JScrollPane scrollPane = new JScrollPane(table);
-        Dimension preferredSize = new Dimension(600, 300); // Ajusta este valor según tus necesidades
-        scrollPane.setPreferredSize(preferredSize);
-
-        JFrame frame = new JFrame("Marcadores de los enfrentamientos");
-        //JScrollPane scrollPane = new JScrollPane(table);
-        JOptionPane.showMessageDialog(null, scrollPane, "Lista de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
          
      }
      
@@ -689,6 +731,41 @@ public class Menus{
              }
          }
          return retorno;
+     }
+     
+     //mostrar tabla resultados por torneo
+     
+     public void mostrarResultados(){
+         String buscar=miTorneo.entrada("Ingrese el nombre del torneo");
+         boolean c=false;
+         for(int i=0;i<listaTorneos.size()&&c==false;i++){
+             if(listaTorneos.get(i).getNombreTorneo().equals(buscar)){
+                 //Crear tabla
+         
+                DefaultTableModel model = new DefaultTableModel();
+                model.addColumn("Nombre Equipo");
+                model.addColumn("Victorias");
+                model.addColumn("Perdidas");
+                model.addColumn("Empates");
+
+                for (Equipo per :listaTorneos.get(i).equipos) {
+                    model.addRow(new Object[]{per.getNombreEquipo(),per.result()[0],per.result()[1],per.result()[2]});
+                }
+
+               JTable table = new JTable(model);
+
+               JScrollPane scrollPane = new JScrollPane(table);
+               Dimension preferredSize = new Dimension(600, 300); // Ajusta este valor según tus necesidades
+               scrollPane.setPreferredSize(preferredSize);
+
+               JFrame frame = new JFrame("Marcadores de los enfrentamientos");
+               //JScrollPane scrollPane = new JScrollPane(table);
+               JOptionPane.showMessageDialog(null, scrollPane, "Lista de los enfrentamientos", JOptionPane.PLAIN_MESSAGE);
+               c=true;
+             }
+         }
+         
+         
      }
 
 }

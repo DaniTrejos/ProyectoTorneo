@@ -13,6 +13,7 @@ public class NewMain {
     public static void main(String[] args) {
 
         Menus menus = new Menus();
+        menus.datos();
         menus.menuPrincipal();
         
     }

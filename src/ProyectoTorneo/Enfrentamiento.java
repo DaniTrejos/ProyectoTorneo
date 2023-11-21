@@ -117,6 +117,42 @@ public class Enfrentamiento {
         }
         
     }
+    
+    //Metodo para registrar resultados
+    public void registrarResultado(){
+        int e=Integer.parseInt(JOptionPane.showInputDialog(null,"Ingrese 1 si hubo un equipo ganador o 2 si fue un empate","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
+        if(e==1){
+            int p=-1;
+            String buscar=JOptionPane.showInputDialog(null,"Ingrese el nombre del equipo ganador","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+            for(int i=0;i<listaEquipos.size();i++){
+                if(listaEquipos.get(i).getNombreEquipo().equals(buscar)){
+                    p=i;
+                }
+            }
+            if(p==-1){
+                JOptionPane.showMessageDialog(null, "No se encontraron resultados","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+            }
+            else{
+                for(int i=0;i<listaEquipos.size();i++){
+                    if(i==p){
+                        listaEquipos.get(i).adicionarResultado(Resultado.GANADOR);
+                    }
+                    else{
+                        listaEquipos.get(i).adicionarResultado(Resultado.PERDEDOR);
+                    }
+                }
+            }
+        }
+        
+        else if(e==2){
+            for(int i=0;i<listaEquipos.size();i++){
+                listaEquipos.get(i).adicionarResultado(Resultado.EMPATE);
+            }
+        
+        }
+        JOptionPane.showMessageDialog(null, "Registro exitoso","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE);
+        this.setEstadoEnfrentamiento(EstadoEnfrentamiento.FINALIZADO);
+    }
 
     
 }

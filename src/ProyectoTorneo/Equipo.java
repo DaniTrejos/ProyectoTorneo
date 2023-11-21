@@ -9,6 +9,7 @@ public class Equipo {
     private int puntuacion;
 
     ArrayList<Jugador> listaJugadores = new ArrayList<>();
+    ArrayList<Resultado>resultados=new ArrayList<>();
 
     public Equipo(String nombreEquipo, Persona representante, int puntuacion) {
         this.nombreEquipo = nombreEquipo;
@@ -45,6 +46,9 @@ public class Equipo {
         this.puntuacion = puntuacion;
     }
     
+    public void adicionarResultado(Resultado r){
+        resultados.add(r);
+    }
     
 
     /*public ArrayList<Jugador> getListaJugadores() {
@@ -159,6 +163,30 @@ public class Equipo {
         miPersona.setNumeroCelular(JOptionPane.showInputDialog(null, "            Ingrese el número de celular ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         
         return miPersona;
+    }
+    
+    //Metodo para contar resultados
+    public int[] result(){
+        int [] retorno=new int[3];
+        int g=0;
+        int p=0;
+        int e=0;
+        for(int i=0;i<resultados.size();i++){
+            if(resultados.get(i).equals(Resultado.GANADOR)){
+                g=g+1;
+            }
+            else if(resultados.get(i).equals(Resultado.PERDEDOR)){
+                p=p+1;
+            }
+            
+            else{
+                e=e+1;
+            }
+        }
+        retorno[0]=g;
+        retorno[1]=p;
+        retorno[2]=e;
+        return retorno;
     }
 
     //crear funcion crear jugador y validar si el jugador ya esta registrado
