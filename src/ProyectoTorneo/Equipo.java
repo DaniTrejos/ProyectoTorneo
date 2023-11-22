@@ -96,16 +96,16 @@ public class Equipo {
     }
 
     Menus menus = new Menus();
-    Jugador miJugador=new Jugador();
+    //Jugador mijugador=new Jugador();
 
-    public void ingresarEdadJugador(int edM){
+    public void ingresarEdadJugador(int edM,Jugador mijugador){
         int edad1;
         do {
             edad1 = Integer.parseInt(JOptionPane.showInputDialog(null,"             Ingrese la edad del jugador","Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
-            if (edad1 < edM && edad1 > 16) {
-                miJugador.setEdad(edad1);
+            if (edad1 <= edM && edad1 > 16) {
+                mijugador.setEdad(edad1);
                 //se puede omitir el get en la siguiente linea
-                JOptionPane.showMessageDialog(null, "La edad ingresada es " + miJugador.getEdad());
+                JOptionPane.showMessageDialog(null, "La edad ingresada es " + mijugador.getEdad());
                 break;
             } else {
                 JOptionPane.showMessageDialog(null, "El jugador no cumple con los rangos de edad para este torneo");
@@ -116,15 +116,15 @@ public class Equipo {
 
     public void registrarJugador(int edM){
         
-        //Jugador miJugador=new Jugador();
+        Jugador miJugador=new Jugador();
 
         miJugador.setId(verificarJugador(listaJugadores));
         miJugador.setNombre(JOptionPane.showInputDialog(null, "                      Ingrese el nombre ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         miJugador.setApellido(JOptionPane.showInputDialog(null, "                     Ingrese el apellido ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         //miJugador.setEdad(Integer.parseInt(JOptionPane.showInputDialog(null, "                       Ingrese la edad ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE)));
-        //Esta en mi propuesta para validar la edad maxima
+        
 
-        ingresarEdadJugador(edM);
+        ingresarEdadJugador(edM,miJugador);
 
         miJugador.setEmail(JOptionPane.showInputDialog(null, "                      Ingrese el email ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
         miJugador.setNumeroCelular(JOptionPane.showInputDialog(null, "            Ingrese el numero de celular ", "Proyecto Programación II UQ", JOptionPane.PLAIN_MESSAGE));
@@ -141,11 +141,12 @@ public class Equipo {
                 miJugador.setGenero(Genero.OTRO);
                 break;
         }
-        
+        miJugador.setFechaNacimiento(torneo.guardarFecha("Ingrese la fecha de nacimiento en formato: año/mes/dia/hora/minuto"));
         //fecha de nacimiento
+        this.listaJugadores.add(miJugador);
 
         JOptionPane.showMessageDialog(null, "¡Jugador registrado con éxito!");
-        listaJugadores.add(miJugador);
+        
     }
     
     public String entrada(String cadena){
